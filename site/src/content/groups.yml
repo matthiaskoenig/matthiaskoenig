@@ -1,0 +1,63 @@
+# Grouped catalog of all other repositories (not the main projects above).
+# Every entry is fetched by `npm run fetch`; a repository that no longer
+# exists fails the fetch, so remove it here.
+- id: modeling
+  order: 1
+  name: Modeling and simulation
+  description: Python tools for building, simulating and reporting SBML models.
+  repos:
+    - matthiaskoenig/sbmlsim
+    - matthiaskoenig/sbml4humans
+    - matthiaskoenig/pkdb_analysis
+    - matthiaskoenig/brendapy
+    - matthiaskoenig/dfba
+    - matthiaskoenig/modelmanager
+    - matthiaskoenig/tellurium-web
+
+- id: community
+  order: 2
+  name: Community software
+  description: Simulation and modeling software developed together with the systems biology community.
+  repos:
+    - sys-bio/roadrunner
+    - sys-bio/tellurium
+    - opencobra/cobrapy
+
+- id: standards
+  order: 3
+  name: Standards
+  description: Specifications for exchanging models and simulation experiments.
+  repos:
+    - sed-ml/sed-ml
+
+- id: cytoscape
+  order: 4
+  name: Cytoscape apps
+  description: Visualization of SBML models, flux data and SABIO-RK kinetics in Cytoscape 2 and 3.
+  repos:
+    - matthiaskoenig/cy3fluxviz
+    - matthiaskoenig/cy3sabiork
+    - matthiaskoenig/cy3robundle
+    - matthiaskoenig/cy2sbml
+    - matthiaskoenig/cy2fluxviz
+    - matthiaskoenig/cy2sabiork
+    - matthiaskoenig/cy2reposition
+
+- id: liver
+  order: 5
+  name: Liver and whole-cell models
+  description: Early metabolic network and whole-cell modeling projects.
+  repos:
+    - matthiaskoenig/hepatonet
+    - matthiaskoenig/glucose-model
+    - whole-cell-tutors/whole-cell-reduced
+    - dagwa/wholecell-metabolism
+
+- id: other
+  order: 6
+  name: Other
+  description: Websites and setup.
+  repos:
+    - matthiaskoenig/livermetabolism-site
+    - matthiaskoenig/matthiaskoenig
+    - matthiaskoenig/linux-setup

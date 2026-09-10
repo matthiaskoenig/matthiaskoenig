@@ -1,0 +1,77 @@
+# Main projects shown as cards on the site, in `order`.
+# `repo` is owner/name on GitHub; metadata (stars, language, ...) is fetched
+# by `npm run fetch`. Descriptions are a short, software-focused copy of the
+# entries in livermetabolism-site (app/_data/software.yml).
+- id: pkdb
+  order: 1
+  name: PK-DB
+  repo: matthiaskoenig/pkdb
+  title: Pharmacokinetics database
+  description: >-
+    The first FAIR-compliant open database for pharmacokinetics, integrating
+    clinical and pre-clinical trial data. PK-DB enables reproducible PBPK/PD
+    modeling and individualized simulations and has become a key
+    infrastructure for computational pharmacology research.
+  homepage: https://alpha.pk-db.com
+  doi: 10.1093/nar/gkaa990
+  tags: [Pharmacometrics, Digital Twins, Open & FAIR]
+
+- id: sbmlutils
+  order: 2
+  name: sbmlutils
+  repo: matthiaskoenig/sbmlutils
+  title: Python utilities for SBML
+  description: >-
+    A versatile Python library that streamlines working with SBML models:
+    model creation, annotation, reports, and integration with libSBML.
+    Widely used in reproducible modeling workflows across systems biology.
+  docs: https://matthiaskoenig.github.io/sbmlutils
+  doi: 10.5281/zenodo.597149
+  tags: [Open & FAIR, Digital Twins]
+
+- id: pymetadata
+  order: 3
+  name: pymetadata
+  repo: matthiaskoenig/pymetadata
+  title: Metadata and COMBINE archives in Python
+  description: >-
+    Python utilities for working with metadata, ontologies and identifiers,
+    and for reading and writing COMBINE archives, so that models and data
+    carry the annotations that make them FAIR.
+  docs: https://matthiaskoenig.github.io/pymetadata
+  tags: [Open & FAIR]
+
+- id: libsbgnpy
+  order: 4
+  name: libsbgnpy
+  repo: matthiaskoenig/libsbgnpy
+  title: Python library for SBGN
+  description: >-
+    A Python library for the Systems Biology Graphical Notation (SBGN),
+    supporting standardized visualization and exchange of pathway maps.
+  docs: https://matthiaskoenig.github.io/libsbgnpy
+  tags: [Open & FAIR]
+
+- id: visfem
+  order: 5
+  name: VisFEM
+  repo: matthiaskoenig/visfem
+  title: Web visualization of FEM models
+  description: >-
+    A browser-based visualization tool for finite element method (FEM)
+    simulation results, making FEM-based digital twin models interactively
+    explorable and shareable directly from the web.
+  docs: https://matthiaskoenig.github.io/visfem
+  tags: [Digital Twins, AI, Open & FAIR]
+
+- id: cy3sbml
+  order: 6
+  name: cy3sbml
+  repo: matthiaskoenig/cy3sbml
+  title: SBML for Cytoscape 3
+  description: >-
+    A widely used Cytoscape app for the visualization of SBML models in
+    network contexts, enabling intuitive exploration of complex models in
+    systems biology and bioinformatics.
+  doi: 10.5281/zenodo.597154
+  tags: [Open & FAIR, Digital Twins]
