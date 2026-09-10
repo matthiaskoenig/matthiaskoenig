@@ -1,7 +1,7 @@
 import type { Group, Project } from '../content/schemas.ts';
 import type { ReleaseEntry, ReleasesFile, RepoEntry, ReposFile } from '../../scripts/lib/schemas.ts';
 
-export type ProjectView = Project & { repo: RepoEntry };
+export type ProjectView = Omit<Project, 'repo'> & { repo: RepoEntry };
 export type GroupView = Group & { entries: RepoEntry[] };
 export type ReleaseView = ReleaseEntry & { projectId: string; projectName: string; bodyHtml: string };
 

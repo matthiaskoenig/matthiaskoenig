@@ -1,0 +1,26 @@
+---
+import type { ProjectView } from '../lib/merge.ts';
+interface Props { project: ProjectView }
+const { project: p } = Astro.props;
+const pushed = new Date(p.repo.pushedAt).toLocaleDateString('en-GB', { year: 'numeric', month: 'short', day: 'numeric' });
+---
+<article class="flex flex-col rounded-lg border border-surface bg-white p-5 shadow-sm">
+  <h3 class="text-xl"><a class="hover:text-accent" href={p.repo.htmlUrl}>{p.name}</a></h3>
+  <p class="text-sm text-muted">{p.title}</p>
+  <p class="mt-3 flex-1 text-ink/80">{p.description}</p>
+  <ul class="mt-3 flex flex-wrap gap-2 text-xs">
+    {p.tags.map((t) => <li class="rounded-full bg-surface px-2 py-0.5">{t}</li>)}
+  </ul>
+  <dl class="mt-4 flex flex-wrap gap-x-5 gap-y-1 text-sm text-ink/70">
+    <div><dt class="sr-only">Stars</dt><dd>★ {p.repo.stars}</dd></div>
+    <div><dt class="sr-only">Forks</dt><dd>⑂ {p.repo.forks}</dd></div>
+    {p.repo.language && <div><dt class="sr-only">Language</dt><dd>{p.repo.language}</dd></div>}
+    <div><dt class="sr-only">Last push</dt><dd>updated {pushed}</dd></div>
+  </dl>
+  <ul class="mt-3 flex flex-wrap gap-3 text-sm">
+    <li><a class="text-accent underline" href={p.repo.htmlUrl}>Repository</a></li>
+    {p.docs && <li><a class="text-accent underline" href={p.docs}>Documentation</a></li>}
+    {p.homepage && <li><a class="text-accent underline" href={p.homepage}>Website</a></li>}
+    {p.doi && <li><a class="text-accent underline" href={`https://doi.org/${p.doi}`}>DOI</a></li>}
+  </ul>
+</article>

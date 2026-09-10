@@ -1,6 +1,5 @@
 import { existsSync, readFileSync } from 'node:fs';
 import { join } from 'node:path';
-import { fileURLToPath } from 'node:url';
 import type { z } from 'astro/zod';
 import { contributionsFileSchema, releasesFileSchema, reposFileSchema, statsFileSchema } from '../../scripts/lib/schemas.ts';
 import type { ContributionsFile, ReleasesFile, ReposFile, StatsFile } from '../../scripts/lib/schemas.ts';
@@ -12,7 +11,9 @@ export interface GithubData {
   stats: StatsFile;
 }
 
-const defaultDir = fileURLToPath(new URL('../data/github/', import.meta.url));
+// Resolved from the working directory (npm scripts run from site/), because
+// import.meta.url points into dist/.prerender once Astro has bundled this file.
+const defaultDir = join(process.cwd(), 'src/data/github');
 
 function readSnapshot<T>(dir: string, name: string, schema: z.ZodType<T>): T {
   const path = join(dir, name);

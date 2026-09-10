@@ -12,8 +12,8 @@ export const projectSchema = z.object({
   repo: repoRef,
   title: z.string(),
   description: z.string(),
-  homepage: z.string().url().optional(),
-  docs: z.string().url().optional(),
+  homepage: z.url().optional(),
+  docs: z.url().optional(),
   doi: z.string().optional(),
   tags: z.array(z.string()).default([]),
 });
@@ -31,7 +31,7 @@ export const researchSchema = z.object({
   order: z.number().int().positive(),
   name: z.string(),
   description: z.string(),
-  link: z.string().url(),
+  link: z.url(),
 });
 
 export type Project = z.infer<typeof projectSchema>;

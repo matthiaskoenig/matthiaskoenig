@@ -1,6 +1,20 @@
 ---
+import { getCollection } from 'astro:content';
 import Base from '../layouts/Base.astro';
+import Hero from '../components/Hero.astro';
+import ResearchSection from '../components/ResearchSection.astro';
+import ProjectsSection from '../components/ProjectsSection.astro';
+import { loadGithubData } from '../lib/github-data.ts';
+import { mergeProjects } from '../lib/merge.ts';
+
+const data = loadGithubData();
+const projects = mergeProjects((await getCollection('projects')).map((e) => e.data), data.repos);
+const research = (await getCollection('research')).map((e) => e.data);
 ---
-<Base title="Matthias König">
-  <main class="flex-1 px-4"><h1 class="text-3xl">Matthias König</h1></main>
+<Base title="Matthias König – software & research software engineering" fetchedAt={data.repos.fetchedAt}>
+  <Hero />
+  <main class="flex-1">
+    <ResearchSection items={research} />
+    <ProjectsSection projects={projects} />
+  </main>
 </Base>
