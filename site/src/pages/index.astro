@@ -9,7 +9,7 @@ import ReleasesSection from '../components/ReleasesSection.astro';
 import RepositoriesSection from '../components/RepositoriesSection.astro';
 import { loadGithubData } from '../lib/github-data.ts';
 import { renderMarkdown, summarizeMarkdown } from '../lib/markdown.ts';
-import { mergeGroups, mergeProjects, mergeReleases } from '../lib/merge.ts';
+import { mergeGroups, mergeProjects, mergeReleases, releaseSources } from '../lib/merge.ts';
 
 // Curated YAML (content collections) merged with the fetched GitHub snapshots.
 const data = loadGithubData();
@@ -17,7 +17,9 @@ const projectsRaw = (await getCollection('projects')).map((e) => e.data);
 const projects = mergeProjects(projectsRaw, data.repos, data.releases, data.projectMeta);
 const groups = mergeGroups((await getCollection('groups')).map((e) => e.data), data.repos);
 const research = (await getCollection('research')).map((e) => e.data);
-const releases = mergeReleases(projectsRaw, data.releases, renderMarkdown, summarizeMarkdown);
+// Release feed: the latest release of every repository on the page, from the last two years.
+const since = new Date(new Date(data.releases.fetchedAt).getTime() - 2 * 365 * 86400000).toISOString();
+const releases = mergeReleases(releaseSources(projectsRaw, groups), data.releases, renderMarkdown, summarizeMarkdown, since);
 ---
 <Base title="Prof. Dr. Matthias König – software & research software engineering" fetchedAt={data.repos.fetchedAt}>
   <Hero />

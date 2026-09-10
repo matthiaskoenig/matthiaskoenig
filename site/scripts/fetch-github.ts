@@ -80,7 +80,8 @@ export async function runFetch(opts: {
   // entries up by the YAML spelling.
   const repos: Record<string, RepoEntry> = Object.fromEntries(all.map((name, i) => [name, repoEntries[i]]));
 
-  const releaseLists = await mapLimit(main, 4, async (fullName) => {
+  // Releases of every listed repository (the feed shows the latest one per repo).
+  const releaseLists = await mapLimit(all, 4, async (fullName) => {
     const api = z.array(apiReleaseSchema).parse(await client.rest(`/repos/${fullName}/releases?per_page=10`));
     return [fullName, toReleaseEntries(fullName, api)] as [string, ReleaseEntry[]];
   });

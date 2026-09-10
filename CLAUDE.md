@@ -69,9 +69,10 @@ In GitHub Actions the default `GITHUB_TOKEN` is enough for the fetch.
 The set of repositories the fetcher queries is derived from the curated YAML
 (`projects[].repo` ∪ `groups[].repos[]`), so add a repository by editing the
 YAML, then re-run `npm run fetch`. A repository that 404s fails the fetch on
-purpose; fix or remove it in the YAML. Releases (last ten) and project
-metadata are fetched for main projects only; the feed and the cards show the
-latest release of each project.
+purpose; fix or remove it in the YAML. Releases (last ten per repo) are
+fetched for every repository, project metadata for main projects only. The
+feed shows each repository once with its latest release if it is less than
+two years old; the cards show the latest release of each main project.
 
 Astro merges curated entries with the snapshot by `owner/name` key at build
 time and passes plain data to the islands as props. `src/lib/github-data.ts`

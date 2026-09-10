@@ -46,7 +46,7 @@ export function makeFixtureData(opts: { contentDir: string; outDir: string; now?
     };
   });
   const releaseFixture = z.array(apiReleaseSchema).parse(JSON.parse(readFileSync(join(fixturesDir, 'rest-releases.json'), 'utf8')));
-  const releases = Object.fromEntries(main.map((r) => [r, toReleaseEntries(r, releaseFixture)]));
+  const releases = Object.fromEntries(all.map((r) => [r, toReleaseEntries(r, releaseFixture)]));
   const contribFixture = graphqlContributionsSchema.parse(JSON.parse(readFileSync(join(fixturesDir, 'graphql-contributions.json'), 'utf8')));
   const from = new Date(now.getTime() - 365 * 86400000).toISOString();
   const contributions = toContributions(contribFixture, 'matthiaskoenig', from, fetchedAt, fetchedAt);

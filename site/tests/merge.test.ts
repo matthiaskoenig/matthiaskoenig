@@ -1,5 +1,5 @@
 import { expect, test } from 'vitest';
-import { mergeGroups, mergeProjects, mergeReleases } from '../src/lib/merge.ts';
+import { mergeGroups, mergeProjects, mergeReleases, releaseSources } from '../src/lib/merge.ts';
 import type { ReleasesFile, ReposFile, RepoEntry } from '../scripts/lib/schemas.ts';
 
 const entry = (fullName: string): RepoEntry => ({
@@ -36,14 +36,21 @@ test('mergeGroups attaches entries in listed order', () => {
   const v = mergeGroups([{ id: 'g', order: 1, name: 'G', description: '', repos: ['o/b', 'o/a'] }], repos);
   expect(v[0].entries.map((e) => e.fullName)).toEqual(['o/b', 'o/a']);
 });
-test('mergeReleases keeps only the latest release per project, rendered and summarised, newest first', () => {
-  const v = mergeReleases(projects, releases, (md) => `<p>${md}</p>`, (md) => md.toUpperCase());
+const sources = projects.map((p) => ({ id: p.id, name: p.name, repo: p.repo }));
+test('mergeReleases keeps only the latest release per source, rendered and summarised, newest first', () => {
+  const v = mergeReleases(sources, releases, (md) => `<p>${md}</p>`, (md) => md.toUpperCase(), '2020-01-01T00:00:00Z');
   expect(v.map((r) => r.tag)).toEqual(['2', '1']);
   expect(v.map((r) => r.projectName)).toEqual(['B', 'A']);
   expect(v[1].bodyHtml).toBe('<p>**b**</p>');
   expect(v[1].summary).toBe('**B**');
 });
-test('mergeReleases skips projects without releases', () => {
-  const v = mergeReleases([...projects, { id: 'c', order: 3, name: 'C', repo: 'o/c', title: '', description: '', tags: [] }], releases, (md) => md);
-  expect(v.map((r) => r.projectId)).toEqual(['b', 'a']);
+test('mergeReleases skips sources without releases and latest releases older than `since`', () => {
+  const v = mergeReleases([...sources, { id: 'c', name: 'C', repo: 'o/c' }], releases, (md) => md, () => '', '2026-01-15T00:00:00Z');
+  expect(v.map((r) => r.projectId)).toEqual(['b']);
+});
+test('releaseSources lists projects then catalog repos, owner-prefixed for other owners', () => {
+  const groups = mergeGroups([{ id: 'g', order: 1, name: 'G', description: '', repos: ['o/b'] }], repos);
+  groups[0].entries.push({ ...entry('matthiaskoenig/x') });
+  const s = releaseSources(projects, groups);
+  expect(s.map((x) => x.name)).toEqual(['A', 'B', 'o/b', 'x']);
 });
