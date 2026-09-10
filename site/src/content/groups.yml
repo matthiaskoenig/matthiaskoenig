@@ -6,7 +6,6 @@
   name: Modeling and simulation
   description: Python tools for building, simulating and reporting SBML models.
   repos:
-    - matthiaskoenig/sbmlsim
     - matthiaskoenig/sbml4humans
     - matthiaskoenig/pkdb_analysis
     - matthiaskoenig/brendapy

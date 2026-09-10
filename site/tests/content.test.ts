@@ -7,7 +7,7 @@ const contentDir = fileURLToPath(new URL('../src/content/', import.meta.url));
 describe('curated content', () => {
   test('all three files parse against their schemas', () => {
     const c = loadCuratedYaml(contentDir);
-    expect(c.projects.length).toBe(6);
+    expect(c.projects.length).toBe(7);
     expect(c.groups.length).toBeGreaterThan(0);
     expect(c.research.length).toBeGreaterThanOrEqual(3);
   });
@@ -24,6 +24,6 @@ describe('curated content', () => {
   });
   test('project order is 1..n without gaps', () => {
     const orders = loadCuratedYaml(contentDir).projects.map((p) => p.order).sort((a, b) => a - b);
-    expect(orders).toEqual([1, 2, 3, 4, 5, 6]);
+    expect(orders).toEqual([1, 2, 3, 4, 5, 6, 7]);
   });
 });
