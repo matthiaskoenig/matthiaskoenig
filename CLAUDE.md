@@ -70,8 +70,8 @@ The set of repositories the fetcher queries is derived from the curated YAML
 (`projects[].repo` ∪ `groups[].repos[]`), so add a repository by editing the
 YAML, then re-run `npm run fetch`. A repository that 404s fails the fetch on
 purpose; fix or remove it in the YAML. Releases (last ten) and project
-metadata are fetched for main projects only; the feed shows the last twelve
-months, the cards the latest release.
+metadata are fetched for main projects only; the feed and the cards show the
+latest release of each project.
 
 Astro merges curated entries with the snapshot by `owner/name` key at build
 time and passes plain data to the islands as props. `src/lib/github-data.ts`

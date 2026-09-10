@@ -52,8 +52,8 @@ dist/                        pushed to matthiaskoenig/matthiaskoenig.github.io
    sanitised HTML, and produces `dist/`. Three Vue components are hydrated in
    the browser (contribution calendar, release feed with filter, repository
    catalog with search and sorting); they receive their data as props and never
-   call the API. The release feed shows the releases of the last twelve months;
-   each project card shows its latest release regardless of age.
+   call the API. The release feed lists the latest release of each main
+   project, newest first, with a summary of its notes.
 
 4. **Deployment**: `.github/workflows/deploy.yml` runs on every push to `main`,
    every Monday (to refresh the GitHub data) and on demand. It runs fetch →

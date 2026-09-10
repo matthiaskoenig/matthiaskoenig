@@ -17,10 +17,7 @@ const projectsRaw = (await getCollection('projects')).map((e) => e.data);
 const projects = mergeProjects(projectsRaw, data.repos, data.releases, data.projectMeta);
 const groups = mergeGroups((await getCollection('groups')).map((e) => e.data), data.repos);
 const research = (await getCollection('research')).map((e) => e.data);
-// The release feed is news: only releases of the last twelve months.
-const since = new Date(new Date(data.releases.fetchedAt).getTime() - 365 * 86400000).toISOString();
-const releases = mergeReleases(projectsRaw, data.releases, renderMarkdown, since, summarizeMarkdown);
-const projectChips = projects.map((p) => ({ id: p.id, name: p.name }));
+const releases = mergeReleases(projectsRaw, data.releases, renderMarkdown, summarizeMarkdown);
 ---
 <Base title="Prof. Dr. Matthias König – software & research software engineering" fetchedAt={data.repos.fetchedAt}>
   <Hero />
@@ -28,7 +25,7 @@ const projectChips = projects.map((p) => ({ id: p.id, name: p.name }));
     <ResearchSection items={research} />
     <ProjectsSection projects={projects} />
     <ContributionsSection stats={data.stats} contributions={data.contributions} />
-    <ReleasesSection releases={releases} projects={projectChips} />
+    <ReleasesSection releases={releases} />
     <RepositoriesSection groups={groups} />
   </main>
 </Base>
