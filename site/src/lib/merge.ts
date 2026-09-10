@@ -3,7 +3,7 @@ import type { ProjectMeta, ProjectMetaFile, ReleaseEntry, ReleasesFile, RepoEntr
 
 export type ProjectView = Omit<Project, 'repo'> & { repo: RepoEntry; latestRelease: ReleaseEntry | null; meta: ProjectMeta | null };
 export type GroupView = Group & { entries: RepoEntry[] };
-export type ReleaseView = ReleaseEntry & { projectId: string; projectName: string; bodyHtml: string };
+export type ReleaseView = ReleaseEntry & { projectId: string; projectName: string; bodyHtml: string; summary: string };
 
 function lookup(repos: ReposFile, fullName: string): RepoEntry {
   const e = repos.repos[fullName];
@@ -26,13 +26,19 @@ export function mergeGroups(groups: Group[], repos: ReposFile): GroupView[] {
   return [...groups].sort((a, b) => a.order - b.order).map((g) => ({ ...g, entries: g.repos.map((r) => lookup(repos, r)) }));
 }
 
-/** Releases of all projects published since `since` (ISO date), rendered, newest first. */
-export function mergeReleases(projects: Project[], releases: ReleasesFile, render: (md: string) => string, since: string): ReleaseView[] {
+/** Releases of all projects published since `since` (ISO date), rendered and summarised, newest first. */
+export function mergeReleases(
+  projects: Project[],
+  releases: ReleasesFile,
+  render: (md: string) => string,
+  since: string,
+  summarize: (md: string) => string = () => '',
+): ReleaseView[] {
   const out: ReleaseView[] = [];
   for (const p of projects) {
     for (const r of releases.releases[p.repo] ?? []) {
       if (r.publishedAt < since) continue;
-      out.push({ ...r, projectId: p.id, projectName: p.name, bodyHtml: render(r.body) });
+      out.push({ ...r, projectId: p.id, projectName: p.name, bodyHtml: render(r.body), summary: summarize(r.body) });
     }
   }
   return out.sort((a, b) => b.publishedAt.localeCompare(a.publishedAt));
