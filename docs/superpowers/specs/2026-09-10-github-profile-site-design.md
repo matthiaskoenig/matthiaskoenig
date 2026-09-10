@@ -145,7 +145,7 @@ can never disagree about which repositories exist.
 | `repos.json` | REST `GET /repos/{owner}/{repo}` | keyed by `owner/name`: description, html_url, homepage, stars, forks, open issues, primary language, topics, license, pushed_at, archived flag |
 | `releases.json` | REST `GET /repos/{owner}/{repo}/releases?per_page=3` for main projects only | keyed by `owner/name`: up to three latest releases with tag, name, published_at, html_url, body (markdown) |
 | `contributions.json` | GraphQL `user(login).contributionsCollection` for the last 365 days | calendar (weeks → days with date, count, level), totalCommitContributions, totalPullRequestContributions, totalIssueContributions, restrictedContributionsCount |
-| `stats.json` | derived from `repos.json` | repo count, total stars, total forks, language byte totals across the listed repos, most recently pushed repos (top 5) |
+| `stats.json` | derived from `repos.json` | repo count, total stars, total forks, primary-language counts across the listed repos (the languages endpoint is not called), most recently pushed repos (top 5) |
 
 Behaviour:
 

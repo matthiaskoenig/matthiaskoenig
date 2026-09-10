@@ -27,9 +27,19 @@ A central focus of our work is the creation of **predictive digital twins**—vi
 - Support **precision dosing** strategies.
 - Explore the impact of **lifestyle and disease** on drug metabolism and treatment outcomes.
 
+## 💻 Software & GitHub Overview
+
+Our open-source software, GitHub activity, latest releases and a catalog of all repositories are on **[matthiaskoenig.github.io](https://matthiaskoenig.github.io)**.
+
 ## 📚 Learn More
 
 Explore our [publications](https://livermetabolism.com/publications), [projects](https://livermetabolism.com/projects), and repositories to dive deeper into our research and contributions.
 
 🔗 **Contact & Collaboration**  
 Interested in collaborating or learning more? Get in touch via our [lab website](https://livermetabolism.com) or check out the ongoing research right here on GitHub.
+
+---
+
+### This repository
+
+This is the GitHub profile README of `matthiaskoenig` and, under [`site/`](./site), the source of [matthiaskoenig.github.io](https://matthiaskoenig.github.io), an [Astro](https://astro.build) site built and deployed by GitHub Actions. How to run, edit and deploy the site is documented in [`site/README.md`](./site/README.md).

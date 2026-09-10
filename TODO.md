@@ -1,0 +1,1 @@
+- [ ] same footer with image as on livermetabolism site.

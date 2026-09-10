@@ -52,6 +52,7 @@ All inside `site/`:
 ```bash
 npm ci
 GITHUB_TOKEN=<token> npm run fetch   # writes src/data/github/*.json; needs public read scope
+npm run fetch:fixtures               # offline alternative: synthetic snapshots for every curated repo
 npm run dev                          # http://localhost:4321
 npm test                             # vitest
 npm run check                        # astro check
@@ -69,10 +70,20 @@ purpose; fix or remove it in the YAML. Releases are fetched for main
 projects only.
 
 Astro merges curated entries with the snapshot by `owner/name` key at build
-time and passes plain data to the islands as props.
+time and passes plain data to the islands as props. `src/lib/github-data.ts`
+resolves the snapshot directory from the working directory (npm scripts run
+from `site/`), because `import.meta.url` points into `dist/` once bundled.
+
+Language statistics count the primary language per repository (from the repo
+response) rather than byte totals; the languages endpoint is not called.
 
 ## Conventions
 
+- Zod always comes from `astro/zod` (zod 4), never a separate `zod` package,
+  so the same schemas work in content collections, scripts and tests.
+- Scripts run natively under Node 24 (`node scripts/foo.ts`): no enums, no
+  `namespace`, no parameter properties in constructors, relative imports with
+  `.ts` extension, `import type` for types.
 - Curated content changes go in `src/content/*.yml`; text about research
   interests is a deliberately short copy of the lab site, not synced from
   it.
@@ -89,6 +100,9 @@ time and passes plain data to the islands as props.
 - Do not add tracking scripts. The imprint page documents what is collected
   (nothing beyond GitHub Pages' own logs).
 
+Developer documentation for humans is `site/README.md`; keep the two in sync
+when commands or layout change.
+
 ## One-time setup (manual, not yet done)
 
 1. Create an SSH key pair. Add the public key as a deploy key with write
@@ -97,4 +111,5 @@ time and passes plain data to the islands as props.
 2. In `matthiaskoenig.github.io`, set GitHub Pages to serve from branch
    `main`, root. After the first successful deploy the old Jekyll files are
    overwritten by the Action; remove any leftovers by hand.
-3. Add the site link to `README.md`.
+3. Merge the `feat/astro-site` branch into `main` (the deploy workflow only
+   runs on `main`).
