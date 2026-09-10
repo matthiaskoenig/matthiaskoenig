@@ -109,7 +109,7 @@ default `GITHUB_TOKEN` is used automatically.
 
 | Change | Where | Then |
 |---|---|---|
-| Add or edit a main project | `src/content/projects.yml` | `npm run fetch` |
+| Add or edit a main project | `src/content/projects.yml` (logo file goes to `src/assets/projects/`) | `npm run fetch` |
 | Add a repository to the catalog | `src/content/groups.yml` | `npm run fetch` |
 | Change the research overview | `src/content/research.yml` | rebuild |
 | Change texts in the hero, footer, imprint | `src/components/Hero.astro`, `Footer.astro`, `src/pages/impressum.astro` | rebuild |

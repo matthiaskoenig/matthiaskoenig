@@ -15,6 +15,7 @@ export const projectSchema = z.object({
   homepage: z.url().optional(),
   docs: z.url().optional(),
   doi: z.string().optional(),
+  image: z.string().optional(),
   tags: z.array(z.string()).default([]),
 });
 

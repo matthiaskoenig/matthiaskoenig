@@ -1,7 +1,14 @@
 ---
+import { Image } from 'astro:assets';
+import type { ImageMetadata } from 'astro';
 import type { ProjectView } from '../lib/merge.ts';
 interface Props { project: ProjectView }
 const { project: p } = Astro.props;
+
+// Logos live in src/assets/projects/; `image` in projects.yml names the file.
+const logos = import.meta.glob<{ default: ImageMetadata }>('../assets/projects/*.{png,webp,svg,jpg}', { eager: true });
+const logo = p.image ? logos[`../assets/projects/${p.image}`]?.default : undefined;
+if (p.image && !logo) throw new Error(`Project ${p.id}: image ${p.image} not found in src/assets/projects/`);
 const fmt = (iso: string) => new Date(iso).toLocaleDateString('en-GB', { year: 'numeric', month: 'short', day: 'numeric' });
 const pyVersions = p.meta?.pythonVersions ?? [];
 const python =
@@ -16,8 +23,17 @@ const zenodo = p.meta?.zenodoDoi ?? (curatedIsZenodo ? p.doi! : null);
 const paperDoi = p.doi && !curatedIsZenodo ? p.doi : null;
 ---
 <article class="flex flex-col rounded-lg border border-surface bg-white p-5 shadow-sm">
-  <h3 class="text-xl"><a class="hover:text-accent" href={p.repo.htmlUrl}>{p.name}</a></h3>
-  <p class="text-sm text-muted">{p.title}</p>
+  <div class="flex items-center gap-4">
+    {logo && (
+      <a href={p.repo.htmlUrl} class="flex h-14 w-24 shrink-0 items-center justify-start" aria-hidden="true" tabindex="-1">
+        <Image src={logo} alt="" height={56} class="max-h-14 max-w-24 object-contain object-left" />
+      </a>
+    )}
+    <div class="min-w-0">
+      <h3 class="text-xl"><a class="hover:text-accent" href={p.repo.htmlUrl}>{p.name}</a></h3>
+      <p class="text-sm text-muted">{p.title}</p>
+    </div>
+  </div>
   <p class="mt-3 flex-1 text-ink/80">{p.description}</p>
   <ul class="mt-3 flex flex-wrap gap-2 text-xs">
     {p.tags.map((t) => <li class="rounded-full bg-surface px-2 py-0.5">{t}</li>)}
