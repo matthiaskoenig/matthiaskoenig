@@ -10,6 +10,7 @@ import RepositoriesSection from '../components/RepositoriesSection.astro';
 import { loadGithubData } from '../lib/github-data.ts';
 import { renderMarkdown, summarizeMarkdown } from '../lib/markdown.ts';
 import { mergeGroups, mergeProjects, mergeReleases, releaseSources } from '../lib/merge.ts';
+import { releaseTimeline, starsByRepo } from '../lib/charts.ts';
 
 // Curated YAML (content collections) merged with the fetched GitHub snapshots.
 const data = loadGithubData();
@@ -19,15 +20,18 @@ const groups = mergeGroups((await getCollection('groups')).map((e) => e.data), d
 const research = (await getCollection('research')).map((e) => e.data);
 // Release feed: the latest release of every repository on the page, from the last two years.
 const since = new Date(new Date(data.releases.fetchedAt).getTime() - 2 * 365 * 86400000).toISOString();
-const releases = mergeReleases(releaseSources(projectsRaw, groups), data.releases, renderMarkdown, summarizeMarkdown, since);
+const sources = releaseSources(projectsRaw, groups);
+const releases = mergeReleases(sources, data.releases, renderMarkdown, summarizeMarkdown, since);
+const timeline = releaseTimeline(sources, data.releases);
+const stars = starsByRepo(data.repos.repos);
 ---
 <Base title="Prof. Dr. Matthias König – software & research software engineering" fetchedAt={data.repos.fetchedAt}>
   <Hero />
   <main class="flex-1">
     <ResearchSection items={research} />
-    <ProjectsSection projects={projects} />
+    <ProjectsSection projects={projects} topics={research} />
     <ContributionsSection stats={data.stats} contributions={data.contributions} />
-    <ReleasesSection releases={releases} />
-    <RepositoriesSection groups={groups} />
+    <ReleasesSection releases={releases} timeline={timeline} />
+    <RepositoriesSection groups={groups} stars={stars} />
   </main>
 </Base>

@@ -1,16 +1,22 @@
 ---
 import Section from './Section.astro';
+import TagIcon from './TagIcon.astro';
 import type { Research } from '../content/schemas.ts';
 interface Props { items: Research[] }
 const items = [...Astro.props.items].sort((a, b) => a.order - b.order);
 ---
-<Section id="research" title="Research interests" lead="Software is how we do science. These are the questions the tools serve; the full picture is on livermetabolism.com.">
-  <div class="grid gap-6 md:grid-cols-2">
+<Section id="research" title="Research interests" lead="Software is how we do science. These are the five areas the tools serve; the full picture is on livermetabolism.com.">
+  <div class="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
     {items.map((r) => (
-      <article class="rounded-lg border border-surface p-5">
-        <h3 class="text-xl">{r.name}</h3>
-        <p class="mt-2 text-ink/80">{r.description}</p>
-        <a class="mt-3 inline-block text-sm text-accent underline" href={r.link}>Read more on livermetabolism.com</a>
+      <article class="flex gap-4 rounded-lg border border-surface p-5" style={`border-top: 4px solid ${r.color}`}>
+        <span class="flex h-11 w-11 shrink-0 items-center justify-center rounded-full text-white" style={`background:${r.color}`}>
+          <TagIcon icon={r.icon} class="h-6 w-6" />
+        </span>
+        <div>
+          <h3 class="text-xl">{r.name}</h3>
+          <p class="mt-2 text-ink/80">{r.description}</p>
+          <a class="mt-3 inline-block text-sm underline" style={`color:${r.color}`} href={r.link}>Read more on livermetabolism.com</a>
+        </div>
       </article>
     ))}
   </div>

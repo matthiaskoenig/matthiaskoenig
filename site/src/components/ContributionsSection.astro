@@ -2,13 +2,19 @@
 import Section from './Section.astro';
 import StatTiles from './StatTiles.astro';
 import ContributionCalendar from './ContributionCalendar.vue';
+import ContributionsChart from './ContributionsChart.vue';
+import { monthlyContributions } from '../lib/charts.ts';
 import type { ContributionsFile, StatsFile } from '../../scripts/lib/schemas.ts';
 interface Props { stats: StatsFile; contributions: ContributionsFile }
 const { stats, contributions } = Astro.props;
+const months = monthlyContributions(contributions);
 ---
 <Section id="contributions" title="Contributions" lead="GitHub activity across the repositories listed on this page, refreshed weekly.">
   <StatTiles stats={stats} contributions={contributions} />
   <div class="mt-8">
     <ContributionCalendar client:visible weeks={contributions.weeks} total={contributions.totals.calendar} />
+  </div>
+  <div class="mt-8">
+    <ContributionsChart client:visible months={months} />
   </div>
 </Section>

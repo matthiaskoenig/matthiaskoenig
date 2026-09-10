@@ -1,9 +1,17 @@
 ---
 import Section from './Section.astro';
 import RepoCatalog from './RepoCatalog.vue';
+import StarsChart from './StarsChart.vue';
 import type { GroupView } from '../lib/merge.ts';
-interface Props { groups: GroupView[] }
+interface Props { groups: GroupView[]; stars: { name: string; stars: number; language: string | null; url: string }[] }
 ---
 <Section id="repositories" title="Repository catalog" lead="Everything else: libraries, apps, models and community projects, grouped by topic.">
-  <RepoCatalog client:visible groups={Astro.props.groups} />
+  <h3 class="text-lg">Most starred</h3>
+  <div class="mt-2 mb-10">
+    <StarsChart client:visible rows={Astro.props.stars} />
+  </div>
+  <h3 class="text-lg">All repositories</h3>
+  <div class="mt-2">
+    <RepoCatalog client:visible groups={Astro.props.groups} />
+  </div>
 </Section>

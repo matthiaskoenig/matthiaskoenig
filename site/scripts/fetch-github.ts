@@ -82,7 +82,7 @@ export async function runFetch(opts: {
 
   // Releases of every listed repository (the feed shows the latest one per repo).
   const releaseLists = await mapLimit(all, 4, async (fullName) => {
-    const api = z.array(apiReleaseSchema).parse(await client.rest(`/repos/${fullName}/releases?per_page=10`));
+    const api = z.array(apiReleaseSchema).parse(await client.rest(`/repos/${fullName}/releases?per_page=30`));
     return [fullName, toReleaseEntries(fullName, api)] as [string, ReleaseEntry[]];
   });
   const releases = Object.fromEntries(releaseLists);

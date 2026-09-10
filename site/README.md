@@ -30,7 +30,9 @@ dist/                        pushed to matthiaskoenig/matthiaskoenig.github.io
    - `projects.yml`: the six main projects shown as cards (PK-DB, sbmlutils,
      pymetadata, libsbgnpy, VisFEM, cy3sbml) with a description, links and tags.
    - `groups.yml`: every other repository, grouped by topic, for the catalog.
-   - `research.yml`: a short overview of research interests linking to the lab site.
+   - `research.yml`: the five research areas with the lab site's tag names,
+     icons and colours; project tags in `projects.yml` must be one of them
+     (the badges on the cards take the topic's colour).
 
    All three are validated by zod schemas in `src/content/schemas.ts`; a typo
    fails the build with a clear message.
@@ -51,8 +53,11 @@ dist/                        pushed to matthiaskoenig/matthiaskoenig.github.io
    curated entries by `owner/name`, renders release notes from markdown to
    sanitised HTML, and produces `dist/`. Three Vue components are hydrated in
    the browser (contribution calendar, release feed with filter, repository
-   catalog with search and sorting); they receive their data as props and never
-   call the API. The release feed lists every repository on the page once,
+   catalog with search and sorting) plus three ECharts plots (release timeline
+   per repository, contributions per month, stars per repository; data
+   prepared in `src/lib/charts.ts`); they receive their data as props and
+   never call the API. ECharts is imported per feature in
+   `src/components/useChart.ts`, so only the used chart types ship. The release feed lists every repository on the page once,
    with its latest release if that is less than two years old, newest first,
    with a summary of its notes.
 
@@ -112,7 +117,7 @@ default `GITHUB_TOKEN` is used automatically.
 |---|---|---|
 | Add or edit a main project | `src/content/projects.yml` (logo file goes to `src/assets/projects/`) | `npm run fetch` |
 | Add a repository to the catalog | `src/content/groups.yml` | `npm run fetch` |
-| Change the research overview | `src/content/research.yml` | rebuild |
+| Change a research topic (text, icon, colour) | `src/content/research.yml`; glyphs live in `src/components/TagIcon.astro` | rebuild |
 | Change texts in the hero, footer, imprint | `src/components/Hero.astro`, `Footer.astro`, `src/pages/impressum.astro` | rebuild |
 | DOI, license, Python versions of a project | `CITATION.cff` / `pyproject.toml` in that project's repository | `npm run fetch` |
 | Colours, fonts | `src/styles/global.css` (`@theme` block) | rebuild |

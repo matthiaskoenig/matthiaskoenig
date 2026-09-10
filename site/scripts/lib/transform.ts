@@ -23,7 +23,7 @@ export function toRepoEntry(api: ApiRepo): RepoEntry {
 }
 
 /** Published, non-draft releases of one repo, newest first, at most `limit`. */
-export function toReleaseEntries(repo: string, api: ApiRelease[], limit = 10): ReleaseEntry[] {
+export function toReleaseEntries(repo: string, api: ApiRelease[], limit = 30): ReleaseEntry[] {
   return api
     .filter((r) => !r.draft && r.published_at)
     .map((r) => ({

@@ -37,9 +37,13 @@ Design spec: `docs/superpowers/specs/2026-09-10-github-profile-site-design.md`.
     project's default branch (`scripts/lib/project-meta.ts`).
   - `src/pages/index.astro` — single page with anchored sections;
     `impressum.astro` — imprint.
-  - `src/components/*.astro` — static parts; `*.vue` — the three islands
-    (`ContributionCalendar`, `ReleaseFeed`, `RepoCatalog`). Islands only
+  - `src/components/*.astro` — static parts; `*.vue` — the islands
+    (`ContributionCalendar`, `ReleaseFeed`, `RepoCatalog`, and the ECharts
+    plots `ReleaseTimeline`, `ContributionsChart`, `StarsChart` built on
+    `useChart.ts`, data prepared in `src/lib/charts.ts`). Islands only
     present props computed at build time; they never fetch.
+  - `research.yml` holds the five lab topics (tag, icon, colour as on
+    livermetabolism.com); project tags must match a topic (tested).
   - `scripts/fetch-github.ts` — GitHub REST + GraphQL fetcher;
     `scripts/lib/` — pure transformation functions (unit-tested).
   - `tests/` — Vitest, with recorded API responses in `tests/fixtures/`.
