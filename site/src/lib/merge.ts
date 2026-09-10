@@ -26,20 +26,17 @@ export function mergeGroups(groups: Group[], repos: ReposFile): GroupView[] {
   return [...groups].sort((a, b) => a.order - b.order).map((g) => ({ ...g, entries: g.repos.map((r) => lookup(repos, r)) }));
 }
 
-/** Releases of all projects published since `since` (ISO date), rendered and summarised, newest first. */
+/** The latest release of each project (projects without releases are skipped), rendered and summarised, newest first. */
 export function mergeReleases(
   projects: Project[],
   releases: ReleasesFile,
   render: (md: string) => string,
-  since: string,
   summarize: (md: string) => string = () => '',
 ): ReleaseView[] {
   const out: ReleaseView[] = [];
   for (const p of projects) {
-    for (const r of releases.releases[p.repo] ?? []) {
-      if (r.publishedAt < since) continue;
-      out.push({ ...r, projectId: p.id, projectName: p.name, bodyHtml: render(r.body), summary: summarize(r.body) });
-    }
+    const latest = [...(releases.releases[p.repo] ?? [])].sort((a, b) => b.publishedAt.localeCompare(a.publishedAt))[0];
+    if (latest) out.push({ ...latest, projectId: p.id, projectName: p.name, bodyHtml: render(latest.body), summary: summarize(latest.body) });
   }
   return out.sort((a, b) => b.publishedAt.localeCompare(a.publishedAt));
 }

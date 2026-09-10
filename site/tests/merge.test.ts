@@ -36,9 +36,14 @@ test('mergeGroups attaches entries in listed order', () => {
   const v = mergeGroups([{ id: 'g', order: 1, name: 'G', description: '', repos: ['o/b', 'o/a'] }], repos);
   expect(v[0].entries.map((e) => e.fullName)).toEqual(['o/b', 'o/a']);
 });
-test('mergeReleases flattens, renders, sorts newest first and drops releases older than `since`', () => {
-  const v = mergeReleases(projects, releases, (md) => `<p>${md}</p>`, '2025-06-01T00:00:00Z');
+test('mergeReleases keeps only the latest release per project, rendered and summarised, newest first', () => {
+  const v = mergeReleases(projects, releases, (md) => `<p>${md}</p>`, (md) => md.toUpperCase());
   expect(v.map((r) => r.tag)).toEqual(['2', '1']);
-  expect(v[1].projectName).toBe('A');
+  expect(v.map((r) => r.projectName)).toEqual(['B', 'A']);
   expect(v[1].bodyHtml).toBe('<p>**b**</p>');
+  expect(v[1].summary).toBe('**B**');
+});
+test('mergeReleases skips projects without releases', () => {
+  const v = mergeReleases([...projects, { id: 'c', order: 3, name: 'C', repo: 'o/c', title: '', description: '', tags: [] }], releases, (md) => md);
+  expect(v.map((r) => r.projectId)).toEqual(['b', 'a']);
 });

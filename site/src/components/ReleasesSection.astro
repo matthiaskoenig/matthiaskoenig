@@ -2,9 +2,9 @@
 import Section from './Section.astro';
 import ReleaseFeed from './ReleaseFeed.vue';
 import type { ReleaseView } from '../lib/merge.ts';
-interface Props { releases: ReleaseView[]; projects: { id: string; name: string }[] }
-const { releases, projects } = Astro.props;
+interface Props { releases: ReleaseView[] }
+const { releases } = Astro.props;
 ---
-<Section id="releases" title="Latest releases" lead="Releases of the main projects from the last twelve months, with their release notes. The latest release of every project is shown on its card above.">
-  <ReleaseFeed client:visible releases={releases} projects={projects} />
+<Section id="releases" title="Latest releases" lead="The latest release of each main project, newest first, with a summary of its release notes.">
+  <ReleaseFeed client:visible releases={releases} />
 </Section>
