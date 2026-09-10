@@ -26,17 +26,32 @@ export function mergeGroups(groups: Group[], repos: ReposFile): GroupView[] {
   return [...groups].sort((a, b) => a.order - b.order).map((g) => ({ ...g, entries: g.repos.map((r) => lookup(repos, r)) }));
 }
 
-/** The latest release of each project (projects without releases are skipped), rendered and summarised, newest first. */
+/** What the release feed lists: a main project or a catalog repository. */
+export interface ReleaseSource { id: string; name: string; repo: string }
+
+/**
+ * The latest release of each source that has one published on or after `since`
+ * (ISO date), rendered and summarised, newest first.
+ */
 export function mergeReleases(
-  projects: Project[],
+  sources: ReleaseSource[],
   releases: ReleasesFile,
   render: (md: string) => string,
-  summarize: (md: string) => string = () => '',
+  summarize: (md: string) => string,
+  since: string,
 ): ReleaseView[] {
   const out: ReleaseView[] = [];
-  for (const p of projects) {
-    const latest = [...(releases.releases[p.repo] ?? [])].sort((a, b) => b.publishedAt.localeCompare(a.publishedAt))[0];
-    if (latest) out.push({ ...latest, projectId: p.id, projectName: p.name, bodyHtml: render(latest.body), summary: summarize(latest.body) });
+  for (const src of sources) {
+    const latest = [...(releases.releases[src.repo] ?? [])].sort((a, b) => b.publishedAt.localeCompare(a.publishedAt))[0];
+    if (!latest || latest.publishedAt < since) continue;
+    out.push({ ...latest, projectId: src.id, projectName: src.name, bodyHtml: render(latest.body), summary: summarize(latest.body) });
   }
   return out.sort((a, b) => b.publishedAt.localeCompare(a.publishedAt));
+}
+
+/** Feed sources: main projects by name, then every catalog repository by its name (owner-prefixed unless it is matthiaskoenig's). */
+export function releaseSources(projects: Project[], groups: GroupView[]): ReleaseSource[] {
+  const out: ReleaseSource[] = [...projects].sort((a, b) => a.order - b.order).map((p) => ({ id: p.id, name: p.name, repo: p.repo }));
+  for (const g of groups) for (const e of g.entries) out.push({ id: e.fullName, name: e.owner === 'matthiaskoenig' ? e.name : e.fullName, repo: e.fullName });
+  return out;
 }

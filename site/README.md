@@ -37,8 +37,8 @@ dist/                        pushed to matthiaskoenig/matthiaskoenig.github.io
 
 2. **GitHub data** is fetched at build time, not in the browser. `npm run fetch`
    reads the curated YAML, derives the set of repositories (projects ∪ groups),
-   and queries the GitHub API for each: repository metadata, the latest three
-   releases of each main project, the contribution calendar of the last year,
+   and queries the GitHub API for each: repository metadata, the latest ten
+   releases of every repository, the contribution calendar of the last year,
    aggregate statistics, and per main project the metadata kept in the
    repository itself: `CITATION.cff` (Zenodo DOI, version, license),
    `pyproject.toml` (supported Python versions, license) and the README's
@@ -52,8 +52,9 @@ dist/                        pushed to matthiaskoenig/matthiaskoenig.github.io
    sanitised HTML, and produces `dist/`. Three Vue components are hydrated in
    the browser (contribution calendar, release feed with filter, repository
    catalog with search and sorting); they receive their data as props and never
-   call the API. The release feed lists the latest release of each main
-   project, newest first, with a summary of its notes.
+   call the API. The release feed lists every repository on the page once,
+   with its latest release if that is less than two years old, newest first,
+   with a summary of its notes.
 
 4. **Deployment**: `.github/workflows/deploy.yml` runs on every push to `main`,
    every Monday (to refresh the GitHub data) and on demand. It runs fetch →
