@@ -19,3 +19,12 @@
 html { scroll-behavior: smooth; }
 body { @apply bg-white text-ink; }
 h1, h2, h3 { @apply font-display; }
+
+/* Minimal typography for rendered release notes (no typography plugin). */
+.prose :is(h1, h2, h3, h4) { @apply mt-4 mb-2 text-base font-semibold; }
+.prose p, .prose ul, .prose ol { @apply my-2; }
+.prose ul { @apply list-disc pl-5; }
+.prose ol { @apply list-decimal pl-5; }
+.prose a { @apply text-accent underline; }
+.prose code { @apply rounded bg-white px-1 text-[0.9em]; }
+.prose pre { @apply overflow-x-auto rounded bg-white p-3 text-sm; }

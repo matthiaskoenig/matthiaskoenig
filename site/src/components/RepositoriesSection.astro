@@ -1,0 +1,9 @@
+---
+import Section from './Section.astro';
+import RepoCatalog from './RepoCatalog.vue';
+import type { GroupView } from '../lib/merge.ts';
+interface Props { groups: GroupView[] }
+---
+<Section id="repositories" title="Repository catalog" lead="Everything else: libraries, apps, models and community projects, grouped by topic.">
+  <RepoCatalog client:visible groups={Astro.props.groups} />
+</Section>
