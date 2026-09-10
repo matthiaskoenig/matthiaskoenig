@@ -16,6 +16,12 @@ describe('curated content', () => {
     const main = new Set(c.projects.map((p) => p.repo));
     for (const g of c.groups) for (const r of g.repos) expect(main.has(r)).toBe(false);
   });
+  test('every project tag is one of the research topics', () => {
+    const c = loadCuratedYaml(contentDir);
+    const tags = new Set(c.research.map((r) => r.tag));
+    for (const p of c.projects) for (const t of p.tags) expect(tags.has(t), `${p.id}: unknown tag ${t}`).toBe(true);
+    expect(c.research.length).toBe(5);
+  });
   test('project order is 1..n without gaps', () => {
     const orders = loadCuratedYaml(contentDir).projects.map((p) => p.order).sort((a, b) => a - b);
     expect(orders).toEqual([1, 2, 3, 4, 5, 6]);

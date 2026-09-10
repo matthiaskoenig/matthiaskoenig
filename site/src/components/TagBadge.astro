@@ -1,0 +1,12 @@
+---
+// Small uppercase pill in the topic's colour, as on livermetabolism.com.
+import TagIcon from './TagIcon.astro';
+import type { Research } from '../content/schemas.ts';
+interface Props { tag: string; topics: Research[] }
+const { tag, topics } = Astro.props;
+const topic = topics.find((t) => t.tag === tag);
+const color = topic?.color ?? '#95a5a6';
+---
+<li class="inline-flex items-center gap-1 rounded-full px-2 py-0.5 text-[0.65rem] font-semibold uppercase tracking-wide" style={`background: color-mix(in srgb, ${color} 12%, white); color: ${color}`}>
+  {topic && <TagIcon icon={topic.icon} class="h-3 w-3" />}{tag}
+</li>

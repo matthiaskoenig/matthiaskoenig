@@ -2,10 +2,11 @@
 import Section from './Section.astro';
 import ProjectCard from './ProjectCard.astro';
 import type { ProjectView } from '../lib/merge.ts';
-interface Props { projects: ProjectView[] }
+import type { Research } from '../content/schemas.ts';
+interface Props { projects: ProjectView[]; topics: Research[] }
 ---
 <Section id="projects" title="Main projects" lead="Open-source software developed and maintained over many years.">
   <div class="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
-    {Astro.props.projects.map((p) => <ProjectCard project={p} />)}
+    {Astro.props.projects.map((p) => <ProjectCard project={p} topics={Astro.props.topics} />)}
   </div>
 </Section>

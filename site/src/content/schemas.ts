@@ -27,10 +27,15 @@ export const groupSchema = z.object({
   repos: z.array(repoRef).min(1),
 });
 
+export const iconNames = ['cube', 'heartbeat', 'picture', 'line-chart', 'unlock'] as const;
+
 export const researchSchema = z.object({
   id: z.string(),
   order: z.number().int().positive(),
+  tag: z.string(),
   name: z.string(),
+  icon: z.enum(iconNames),
+  color: z.string().regex(/^#[0-9a-fA-F]{6}$/, 'expected a hex colour like #3498db'),
   description: z.string(),
   link: z.url(),
 });

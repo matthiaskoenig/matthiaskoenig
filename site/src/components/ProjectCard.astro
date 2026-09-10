@@ -1,9 +1,11 @@
 ---
 import { Image } from 'astro:assets';
 import type { ImageMetadata } from 'astro';
+import TagBadge from './TagBadge.astro';
 import type { ProjectView } from '../lib/merge.ts';
-interface Props { project: ProjectView }
-const { project: p } = Astro.props;
+import type { Research } from '../content/schemas.ts';
+interface Props { project: ProjectView; topics: Research[] }
+const { project: p, topics } = Astro.props;
 
 // Logos live in src/assets/projects/; `image` in projects.yml names the file.
 const logos = import.meta.glob<{ default: ImageMetadata }>('../assets/projects/*.{png,webp,svg,jpg}', { eager: true });
@@ -35,8 +37,8 @@ const paperDoi = p.doi && !curatedIsZenodo ? p.doi : null;
     </div>
   </div>
   <p class="mt-3 flex-1 text-ink/80">{p.description}</p>
-  <ul class="mt-3 flex flex-wrap gap-2 text-xs">
-    {p.tags.map((t) => <li class="rounded-full bg-surface px-2 py-0.5">{t}</li>)}
+  <ul class="mt-3 flex flex-wrap gap-2">
+    {p.tags.map((t) => <TagBadge tag={t} topics={topics} />)}
   </ul>
   <dl class="mt-4 grid grid-cols-[auto_1fr] gap-x-3 gap-y-1 text-sm text-ink/70">
     <dt class="text-muted">Latest release</dt>

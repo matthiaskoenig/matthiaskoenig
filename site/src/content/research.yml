@@ -1,36 +1,62 @@
-# Short research overview; deliberately a condensed copy of livermetabolism.com,
-# not synced from it. Each `link` points to the full story on the lab site.
+# The five research areas of the lab, with the same names, icons and colours as
+# livermetabolism-site (app/_data/tags.yml and $tag-colors in main.scss).
+# `tag` is the exact tag string used in projects.yml; `icon` names a glyph in
+# src/components/TagIcon.astro.
 - id: digital-twins
   order: 1
-  name: Digital twins of human physiology
+  tag: Digital Twins
+  name: Digital Twins
+  icon: cube
+  color: "#3498db"
   description: >-
-    Mechanistic, physiologically based models spanning molecule to whole body
-    that mirror an individual's physiology, enabling simulation-based
-    prediction of disease progression and treatment response.
+    Mechanistic, patient-specific models spanning molecule to whole body that
+    mirror an individual's physiology, enabling simulation-based prediction of
+    disease progression and treatment response.
   link: https://livermetabolism.com/research/?tag=Digital%20Twins
 
-- id: pharmacometrics
+- id: ai
   order: 2
-  name: Pharmacometrics and PBPK/PD
+  tag: AI
+  name: AI
+  icon: heartbeat
+  color: "#f39c12"
   description: >-
-    Physiologically based pharmacokinetic and pharmacodynamic modeling of drug
-    absorption, distribution, metabolism and excretion, backed by PK-DB as an
-    open database of pharmacokinetics data, to support precision dosing.
+    Machine learning combined with mechanistic modeling to extract patterns
+    from complex biomedical data and support predictive, personalized
+    decision-making in medicine.
+  link: https://livermetabolism.com/research/?tag=AI
+
+- id: digital-pathology
+  order: 3
+  tag: Digital Pathology
+  name: Digital Pathology
+  icon: picture
+  color: "#e74c3c"
+  description: >-
+    Computational and AI-driven analysis of whole-slide histology images to
+    quantify tissue structure, zonation, and disease patterns at scale.
+  link: https://livermetabolism.com/research/?tag=Digital%20Pathology
+
+- id: pharmacometrics
+  order: 4
+  tag: Pharmacometrics
+  name: Pharmacometrics
+  icon: line-chart
+  color: "#18bc9c"
+  description: >-
+    Physiologically based pharmacokinetic and pharmacodynamic (PBPK/PD)
+    modeling of drug absorption, distribution, metabolism, and excretion to
+    support precision dosing.
   link: https://livermetabolism.com/research/?tag=Pharmacometrics
 
 - id: open-fair
-  order: 3
-  name: Open and FAIR research software
+  order: 5
+  tag: Open & FAIR
+  name: Open & FAIR
+  icon: unlock
+  color: "#2c3e50"
   description: >-
-    Open, FAIR and reproducible models, data and software that the community
-    can build on: versioned workflows, standardized formats and open-source
-    tools maintained over years.
+    Open, FAIR (Findable, Accessible, Interoperable, Reusable), and
+    reproducible models, data, and software that the research community can
+    build on.
   link: https://livermetabolism.com/research/?tag=Open%20%26%20FAIR
-
-- id: standards
-  order: 4
-  name: Standards for computational biology
-  description: >-
-    Active contributions to community standards such as SBML, SED-ML, SBGN and
-    PEtab, including editor roles and coordination of the COMBINE network.
-  link: https://livermetabolism.com/research/#editors
