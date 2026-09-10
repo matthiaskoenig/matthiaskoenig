@@ -13,6 +13,10 @@ which GitHub Pages serves.
 
 ## How it works
 
+The repository's root `README.md` is **generated** from the same data
+(`npm run readme`, see below) and is what GitHub shows on the profile page;
+never edit it by hand.
+
 ```
 src/content/*.yml            hand-curated content (projects, groups, research)
         │
@@ -62,7 +66,14 @@ dist/                        pushed to matthiaskoenig/matthiaskoenig.github.io
    with its latest release if that is less than two years old, newest first,
    with a summary of its notes.
 
-4. **Deployment**: `.github/workflows/deploy.yml` runs on every push to `main`,
+4. **Profile README**: `scripts/render-readme.ts` renders `../README.md`
+   from the curated YAML and the snapshots (template in
+   `scripts/lib/readme.ts`). `.github/workflows/update-readme.yml` runs it
+   weekly on `develop` and commits the result, so the profile page follows
+   the data. Run `npm run readme` after content changes and commit the
+   README with them.
+
+5. **Deployment**: `.github/workflows/deploy.yml` runs on every push to `main`,
    every Monday (to refresh the GitHub data) and on demand. It runs fetch →
    test → build and pushes `dist/` to the `main` branch of
    `matthiaskoenig/matthiaskoenig.github.io`. If the fetch fails, the job stops
@@ -102,6 +113,7 @@ npm test           # vitest
 npm run check      # astro check (TypeScript + component props)
 npm run build      # writes dist/
 npm run preview    # serves dist/ locally
+npm run readme     # regenerates ../README.md (the profile README) from the snapshots
 ```
 
 Without snapshot files the build fails with
@@ -156,7 +168,11 @@ tests yet.
 
 ## Deployment setup (done once, 2026-09-10)
 
-The deploy works through an SSH deploy key. If it ever has to be rotated:
+Two SSH deploy keys are involved: `PAGES_DEPLOY_KEY` (pushes the built site
+into `matthiaskoenig.github.io`) and `README_DEPLOY_KEY` (a write key on this
+repository; the *Update profile README* workflow pushes the regenerated
+README to `develop` with it, and deploy keys are allowed to bypass the
+develop ruleset). If the site key ever has to be rotated:
 
 1. Create an SSH key pair: `ssh-keygen -t ed25519 -C pages-deploy -f pages-deploy -N ''`.
 2. In `matthiaskoenig/matthiaskoenig.github.io` → Settings → Deploy keys, add

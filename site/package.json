@@ -12,6 +12,7 @@
     "check": "astro check",
     "fetch": "node scripts/fetch-github.ts",
     "fetch:fixtures": "node scripts/make-fixture-data.ts",
+    "readme": "node scripts/render-readme.ts",
     "test": "vitest run"
   },
   "dependencies": {

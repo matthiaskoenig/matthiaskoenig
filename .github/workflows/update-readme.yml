@@ -1,0 +1,50 @@
+# Regenerates the profile README (repository root) from fresh GitHub data and
+# commits it to develop, the default branch GitHub renders on the profile page.
+# The push goes through the README_DEPLOY_KEY deploy key; the develop ruleset
+# lets deploy keys bypass the pull-request rule for exactly this purpose.
+name: Update profile README
+
+on:
+  schedule:
+    - cron: '30 4 * * 1' # Mondays 04:30 UTC, after the weekly site deploy
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: update-readme
+  cancel-in-progress: false
+
+jobs:
+  readme:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: site
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: develop
+          ssh-key: ${{ secrets.README_DEPLOY_KEY }}
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+          cache: npm
+          cache-dependency-path: site/package-lock.json
+      - run: npm ci
+      - run: npm run fetch
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - run: npm run readme
+      - name: Commit and push if the README changed
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add ../README.md
+          if git diff --cached --quiet; then
+            echo "README unchanged"
+          else
+            git commit -m "Update profile README (GitHub data of $(date -u +%F))"
+            git push
+          fi
