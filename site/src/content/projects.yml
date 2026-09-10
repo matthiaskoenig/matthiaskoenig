@@ -32,8 +32,21 @@
   doi: 10.5281/zenodo.597149
   tags: [Open & FAIR, Digital Twins]
 
-- id: pymetadata
+- id: sbmlsim
   order: 3
+  name: sbmlsim
+  image: sbmlsim.webp
+  repo: matthiaskoenig/sbmlsim
+  title: SBML simulation made easy
+  description: >-
+    A lightweight Python package that simplifies simulations of SBML models on
+    top of libRoadRunner: timecourses, scans, parameter fitting and reports,
+    lowering the entry barrier for model testing and teaching.
+  docs: https://matthiaskoenig.github.io/sbmlsim/
+  tags: [Open & FAIR, Digital Twins, Pharmacometrics]
+
+- id: pymetadata
+  order: 4
   name: pymetadata
   image: pymetadata.png
   repo: matthiaskoenig/pymetadata
@@ -46,7 +59,7 @@
   tags: [Open & FAIR]
 
 - id: libsbgnpy
-  order: 4
+  order: 5
   name: libsbgnpy
   image: libsbgnpy.webp
   repo: matthiaskoenig/libsbgnpy
@@ -58,7 +71,7 @@
   tags: [Open & FAIR]
 
 - id: visfem
-  order: 5
+  order: 6
   name: VisFEM
   image: visfem.png
   repo: matthiaskoenig/visfem
@@ -71,7 +84,7 @@
   tags: [Digital Twins, AI, Open & FAIR]
 
 - id: cy3sbml
-  order: 6
+  order: 7
   name: cy3sbml
   image: cy3sbml.webp
   repo: matthiaskoenig/cy3sbml
