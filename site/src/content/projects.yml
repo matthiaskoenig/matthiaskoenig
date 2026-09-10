@@ -1,10 +1,12 @@
 # Main projects shown as cards on the site, in `order`.
 # `repo` is owner/name on GitHub; metadata (stars, language, ...) is fetched
 # by `npm run fetch`. Descriptions are a short, software-focused copy of the
-# entries in livermetabolism-site (app/_data/software.yml).
+# entries in livermetabolism-site (app/_data/software.yml). `image` is a file
+# in src/assets/projects/ (logo, shown small on the card).
 - id: pkdb
   order: 1
   name: PK-DB
+  image: pkdb.webp
   repo: matthiaskoenig/pkdb
   title: Pharmacokinetics database
   description: >-
@@ -19,6 +21,7 @@
 - id: sbmlutils
   order: 2
   name: sbmlutils
+  image: sbmlutils.webp
   repo: matthiaskoenig/sbmlutils
   title: Python utilities for SBML
   description: >-
@@ -32,6 +35,7 @@
 - id: pymetadata
   order: 3
   name: pymetadata
+  image: pymetadata.png
   repo: matthiaskoenig/pymetadata
   title: Metadata and COMBINE archives in Python
   description: >-
@@ -44,6 +48,7 @@
 - id: libsbgnpy
   order: 4
   name: libsbgnpy
+  image: libsbgnpy.webp
   repo: matthiaskoenig/libsbgnpy
   title: Python library for SBGN
   description: >-
@@ -55,6 +60,7 @@
 - id: visfem
   order: 5
   name: VisFEM
+  image: visfem.png
   repo: matthiaskoenig/visfem
   title: Web visualization of FEM models
   description: >-
@@ -67,6 +73,7 @@
 - id: cy3sbml
   order: 6
   name: cy3sbml
+  image: cy3sbml.webp
   repo: matthiaskoenig/cy3sbml
   title: SBML for Cytoscape 3
   description: >-
