@@ -1,0 +1,33 @@
+---
+import Base from '../layouts/Base.astro';
+import { loadGithubData } from '../lib/github-data.ts';
+const { repos } = loadGithubData();
+---
+<Base title="Imprint & privacy – Matthias König" fetchedAt={repos.fetchedAt}>
+  <main class="mx-auto w-full max-w-3xl flex-1 px-4 py-12">
+    <h1 class="text-3xl">Imprint &amp; privacy</h1>
+
+    <h2 class="mt-8 text-xl">Angaben gemäß § 5 TMG / Imprint</h2>
+    <address class="mt-2 not-italic text-ink/80">
+      Prof. Dr. Matthias König<br />
+      Humboldt-Universität zu Berlin<br />
+      Institute for Theoretical Biology<br />
+      Philippstraße 13, 10115 Berlin, Germany<br />
+      E-mail: <a class="text-accent underline" href="mailto:konigmatt@googlemail.com">konigmatt@googlemail.com</a>
+    </address>
+
+    <h2 class="mt-8 text-xl">Privacy</h2>
+    <p class="mt-2 text-ink/80">
+      This is a static website hosted on GitHub Pages. It sets no cookies and loads no third-party scripts,
+      fonts or analytics. When you open the site, GitHub Inc. processes your IP address in its server logs
+      to deliver the pages; see the
+      <a class="text-accent underline" href="https://docs.github.com/en/site-policy/privacy-policies/github-general-privacy-statement">GitHub privacy statement</a>.
+    </p>
+    <p class="mt-2 text-ink/80">
+      The GitHub statistics shown on this site are public repository metadata, fetched once a week by an
+      automated build and embedded into the pages. No personal data of visitors is collected or stored.
+    </p>
+
+    <p class="mt-8"><a class="text-accent underline" href="/">← Back to the overview</a></p>
+  </main>
+</Base>

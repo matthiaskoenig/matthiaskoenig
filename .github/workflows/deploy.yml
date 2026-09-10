@@ -1,0 +1,48 @@
+# Builds the Astro site in site/ and pushes the output to the
+# matthiaskoenig.github.io repository, which GitHub Pages serves.
+# Runs on every push to main, weekly to refresh the GitHub data, and manually.
+name: Deploy site
+
+on:
+  push:
+    branches: [main]
+    paths: ['site/**', '.github/workflows/deploy.yml']
+  schedule:
+    - cron: '0 4 * * 1' # Mondays 04:00 UTC: refresh GitHub data
+  workflow_dispatch:
+
+concurrency:
+  group: deploy
+  cancel-in-progress: false
+
+permissions:
+  contents: read
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: site
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+          cache: npm
+          cache-dependency-path: site/package-lock.json
+      - run: npm ci
+      # Fetch runs first: if it fails the job stops here and the previous
+      # deployment stays online, so the site never regresses to empty data.
+      - run: npm run fetch
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - run: npm test
+      - run: npm run build
+      - uses: peaceiris/actions-gh-pages@v4
+        with:
+          deploy_key: ${{ secrets.PAGES_DEPLOY_KEY }}
+          external_repository: matthiaskoenig/matthiaskoenig.github.io
+          publish_branch: main
+          publish_dir: ./site/dist
+          force_orphan: true
