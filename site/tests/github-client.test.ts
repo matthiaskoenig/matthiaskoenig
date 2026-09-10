@@ -47,3 +47,22 @@ describe('GitHubClient.graphql', () => {
     await expect(c.graphql('query {}', {})).rejects.toThrow(/bad/);
   });
 });
+
+describe('GitHubClient.raw / resolveZenodoBadge', () => {
+  test('raw returns text, or null on 404', async () => {
+    const calls: string[] = [];
+    const impl = (async (url: string | URL | Request) => {
+      calls.push(String(url));
+      return String(url).endsWith('missing.txt') ? new Response('', { status: 404 }) : new Response('doi: x', { status: 200 });
+    }) as typeof fetch;
+    const c = new GitHubClient({ token: 't', fetchImpl: impl, sleep: noSleep });
+    await expect(c.raw('o/r', 'develop', 'CITATION.cff')).resolves.toBe('doi: x');
+    await expect(c.raw('o/r', 'develop', 'missing.txt')).resolves.toBeNull();
+    expect(calls[0]).toBe('https://raw.githubusercontent.com/o/r/develop/CITATION.cff');
+  });
+  test('resolveZenodoBadge reads the DOI from the redirect location', async () => {
+    const impl = (async () => new Response('', { status: 302, headers: { location: 'https://doi.org/10.5281/zenodo.17406771' } })) as typeof fetch;
+    const c = new GitHubClient({ token: 't', fetchImpl: impl, sleep: noSleep });
+    await expect(c.resolveZenodoBadge('https://zenodo.org/badge/latestdoi/5066/matthiaskoenig/cy3sbml')).resolves.toBe('10.5281/zenodo.17406771');
+  });
+});

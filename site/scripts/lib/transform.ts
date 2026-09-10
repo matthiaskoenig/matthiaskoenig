@@ -18,11 +18,12 @@ export function toRepoEntry(api: ApiRepo): RepoEntry {
     license: api.license?.spdx_id && api.license.spdx_id !== 'NOASSERTION' ? api.license.spdx_id : null,
     pushedAt: api.pushed_at,
     archived: api.archived,
+    defaultBranch: api.default_branch,
   };
 }
 
-/** Published, non-draft releases of one repo, newest first, at most three. */
-export function toReleaseEntries(repo: string, api: ApiRelease[]): ReleaseEntry[] {
+/** Published, non-draft releases of one repo, newest first, at most `limit`. */
+export function toReleaseEntries(repo: string, api: ApiRelease[], limit = 10): ReleaseEntry[] {
   return api
     .filter((r) => !r.draft && r.published_at)
     .map((r) => ({
@@ -35,7 +36,7 @@ export function toReleaseEntries(repo: string, api: ApiRelease[]): ReleaseEntry[
       prerelease: r.prerelease,
     }))
     .sort((a, b) => b.publishedAt.localeCompare(a.publishedAt))
-    .slice(0, 3);
+    .slice(0, limit);
 }
 
 export function toContributions(g: GraphqlContributions, login: string, from: string, to: string, fetchedAt: string): ContributionsFile {

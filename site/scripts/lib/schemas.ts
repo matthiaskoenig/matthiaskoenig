@@ -19,6 +19,7 @@ export const apiRepoSchema = z.object({
   license: z.object({ spdx_id: z.string().nullable() }).nullable(),
   pushed_at: z.string(),
   archived: z.boolean(),
+  default_branch: z.string(),
 });
 
 export const apiReleaseSchema = z.object({
@@ -77,6 +78,7 @@ export const repoEntrySchema = z.object({
   license: z.string().nullable(),
   pushedAt: z.string(),
   archived: z.boolean(),
+  defaultBranch: z.string(),
 });
 export const reposFileSchema = z.object({
   fetchedAt: z.string(),
@@ -117,6 +119,19 @@ export const contributionsFileSchema = z.object({
   ),
 });
 
+/** Per main project, read from files in the repository (CITATION.cff, pyproject.toml, README). */
+export const projectMetaSchema = z.object({
+  version: z.string().nullable(),
+  zenodoDoi: z.string().nullable(),
+  license: z.string().nullable(),
+  requiresPython: z.string().nullable(),
+  pythonVersions: z.array(z.string()),
+});
+export const projectMetaFileSchema = z.object({
+  fetchedAt: z.string(),
+  projects: z.record(z.string(), projectMetaSchema),
+});
+
 export const statsFileSchema = z.object({
   fetchedAt: z.string(),
   repoCount: z.number(),
@@ -135,3 +150,5 @@ export type ReleaseEntry = z.infer<typeof releaseEntrySchema>;
 export type ReleasesFile = z.infer<typeof releasesFileSchema>;
 export type ContributionsFile = z.infer<typeof contributionsFileSchema>;
 export type StatsFile = z.infer<typeof statsFileSchema>;
+export type ProjectMeta = z.infer<typeof projectMetaSchema>;
+export type ProjectMetaFile = z.infer<typeof projectMetaFileSchema>;

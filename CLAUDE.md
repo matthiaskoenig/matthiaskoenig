@@ -31,7 +31,10 @@ Design spec: `docs/superpowers/specs/2026-09-10-github-profile-site-design.md`.
     (research interest areas).
   - `src/data/github/*.json` — **gitignored** snapshots written by
     `npm run fetch` (`repos.json`, `releases.json`, `contributions.json`,
-    `stats.json`). The build fails without them.
+    `stats.json`, `project-meta.json`). The build fails without them.
+    `project-meta.json` (DOI, license, Python versions, version) is parsed
+    from `CITATION.cff`, `pyproject.toml` and the README of each main
+    project's default branch (`scripts/lib/project-meta.ts`).
   - `src/pages/index.astro` — single page with anchored sections;
     `impressum.astro` — imprint.
   - `src/components/*.astro` — static parts; `*.vue` — the three islands
@@ -66,8 +69,9 @@ In GitHub Actions the default `GITHUB_TOKEN` is enough for the fetch.
 The set of repositories the fetcher queries is derived from the curated YAML
 (`projects[].repo` ∪ `groups[].repos[]`), so add a repository by editing the
 YAML, then re-run `npm run fetch`. A repository that 404s fails the fetch on
-purpose; fix or remove it in the YAML. Releases are fetched for main
-projects only.
+purpose; fix or remove it in the YAML. Releases (last ten) and project
+metadata are fetched for main projects only; the feed shows the last twelve
+months, the cards the latest release.
 
 Astro merges curated entries with the snapshot by `owner/name` key at build
 time and passes plain data to the islands as props. `src/lib/github-data.ts`
