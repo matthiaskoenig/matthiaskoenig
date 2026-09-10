@@ -1,0 +1,18 @@
+{
+  "data": { "user": { "contributionsCollection": {
+    "totalCommitContributions": 812, "totalPullRequestContributions": 14,
+    "totalIssueContributions": 9, "totalPullRequestReviewContributions": 5,
+    "restrictedContributionsCount": 3,
+    "contributionCalendar": { "totalContributions": 843, "weeks": [
+      { "contributionDays": [
+        { "date": "2025-09-07", "contributionCount": 0, "contributionLevel": "NONE" },
+        { "date": "2025-09-08", "contributionCount": 3, "contributionLevel": "FIRST_QUARTILE" },
+        { "date": "2025-09-09", "contributionCount": 7, "contributionLevel": "SECOND_QUARTILE" },
+        { "date": "2025-09-10", "contributionCount": 12, "contributionLevel": "THIRD_QUARTILE" },
+        { "date": "2025-09-11", "contributionCount": 20, "contributionLevel": "FOURTH_QUARTILE" },
+        { "date": "2025-09-12", "contributionCount": 1, "contributionLevel": "FIRST_QUARTILE" },
+        { "date": "2025-09-13", "contributionCount": 0, "contributionLevel": "NONE" } ] },
+      { "contributionDays": [
+        { "date": "2025-09-14", "contributionCount": 2, "contributionLevel": "FIRST_QUARTILE" } ] }
+    ] } } } }
+}
