@@ -7,8 +7,13 @@ Guidance for Claude Code when working in this repository.
 Two things in one repository:
 
 1. `README.md` is the **GitHub profile README** of `matthiaskoenig` (rendered
-   on https://github.com/matthiaskoenig). Keep it a short, hand-written
-   profile; it is not generated.
+   on https://github.com/matthiaskoenig). It is **generated** by
+   `site/scripts/render-readme.ts` (template: `site/scripts/lib/readme.ts`)
+   from the same curated YAML and snapshots as the site; never edit it by
+   hand. `npm run readme` (in `site/`, after `npm run fetch`) regenerates it;
+   the *Update profile README* workflow does the same weekly on `develop`,
+   pushing with the `README_DEPLOY_KEY` deploy key (deploy keys bypass the
+   develop ruleset).
 2. `site/` is the **source of https://matthiaskoenig.github.io**, a static
    Astro site about Matthias König's software and research software
    engineering work. It replaces the old Jekyll site that lived in the
@@ -48,6 +53,8 @@ Design spec: `docs/superpowers/specs/2026-09-10-github-profile-site-design.md`.
   - `scripts/fetch-github.ts` — GitHub REST + GraphQL fetcher;
     `scripts/lib/` — pure transformation functions (unit-tested).
   - `tests/` — Vitest, with recorded API responses in `tests/fixtures/`.
+- `.github/workflows/update-readme.yml` — weekly: fetch → `npm run readme`
+  → commit README to `develop`.
 - `.github/workflows/deploy.yml` — fetch → test → build → push `site/dist`
   to `matthiaskoenig/matthiaskoenig.github.io` (weekly, on push to main,
   manual). `ci.yml` — test + build on pull requests.
