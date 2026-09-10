@@ -1,15 +1,21 @@
-# Tests and builds the site on pull requests. Does not deploy.
+# Tests, type-checks and builds the site on every push and pull request.
+# The job names `tests` and `build` are the status checks required by the
+# `develop` ruleset. Deployment is a separate workflow (deploy.yml).
 name: CI
 
 on:
+  push:
   pull_request:
-    paths: ['site/**', '.github/workflows/ci.yml']
 
 permissions:
   contents: read
 
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
 jobs:
-  build:
+  tests:
     runs-on: ubuntu-latest
     defaults:
       run:
@@ -23,8 +29,22 @@ jobs:
           cache-dependency-path: site/package-lock.json
       - run: npm ci
       - run: npm test
+      - run: npm run check
+
+  build:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: site
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+          cache: npm
+          cache-dependency-path: site/package-lock.json
+      - run: npm ci
       - run: npm run fetch
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      - run: npm run check
       - run: npm run build

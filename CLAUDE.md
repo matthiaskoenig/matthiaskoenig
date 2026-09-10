@@ -103,13 +103,16 @@ response) rather than byte totals; the languages endpoint is not called.
 Developer documentation for humans is `site/README.md`; keep the two in sync
 when commands or layout change.
 
-## One-time setup (manual, not yet done)
+## Branch model
 
-1. Create an SSH key pair. Add the public key as a deploy key with write
-   access on `matthiaskoenig/matthiaskoenig.github.io`; add the private key
-   as the secret `PAGES_DEPLOY_KEY` in this repository.
-2. In `matthiaskoenig.github.io`, set GitHub Pages to serve from branch
-   `main`, root. After the first successful deploy the old Jekyll files are
-   overwritten by the Action; remove any leftovers by hand.
-3. Merge the `feat/astro-site` branch into `main` (the deploy workflow only
-   runs on `main`).
+Same as sbmlutils and sbmlsim, enforced by GitHub rulesets: `develop` is the
+default branch and takes pull requests only (checks `tests` and `build` from
+`ci.yml`, linear history, squash/rebase merge, branch deleted after merge);
+`main` is the deployed branch and is updated by merging `develop` into it,
+which triggers `deploy.yml`; `main` and tags cannot be deleted or
+force-pushed. Feature work: branch from `develop`, open a PR against
+`develop`. Do not commit directly to `develop` or `main`.
+
+The deploy key, the `PAGES_DEPLOY_KEY` secret and the Pages configuration
+of `matthiaskoenig.github.io` (branch `main`, root) were set up on
+2026-09-10; `site/README.md` documents how to rotate the key.

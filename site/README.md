@@ -56,6 +56,21 @@ dist/                        pushed to matthiaskoenig/matthiaskoenig.github.io
    `matthiaskoenig/matthiaskoenig.github.io`. If the fetch fails, the job stops
    before deploying, so the live site keeps its previous data.
 
+## Branches and workflow
+
+The repository follows the same model as sbmlutils and sbmlsim:
+
+- `develop` is the default branch. Day-to-day work happens on feature branches
+  and lands in `develop` through pull requests; the ruleset on `develop`
+  requires a pull request with the `tests` and `build` checks green, a linear
+  history, and squash or rebase merges (merged branches are deleted
+  automatically).
+- `main` is the deployed branch. Merging `develop` into `main` (a pull request,
+  or a fast-forward push) triggers the *Deploy site* workflow. `main` and tags
+  cannot be deleted or force-pushed.
+- `.github/workflows/ci.yml` runs `tests` (vitest + astro check) and `build`
+  (fetch + astro build) on every push and pull request.
+
 ## Local development
 
 Requires Node ≥ 22.12 (the workflows use Node 24) and npm.
@@ -126,18 +141,19 @@ into the snapshot shapes, statistics, the retry behaviour of the API client
 islands are covered by `npm run check` and the build; there are no component
 tests yet.
 
-## One-time setup for deployment
+## Deployment setup (done once, 2026-09-10)
+
+The deploy works through an SSH deploy key. If it ever has to be rotated:
 
 1. Create an SSH key pair: `ssh-keygen -t ed25519 -C pages-deploy -f pages-deploy -N ''`.
 2. In `matthiaskoenig/matthiaskoenig.github.io` → Settings → Deploy keys, add
-   `pages-deploy.pub` with **write access**.
-3. In `matthiaskoenig/matthiaskoenig` → Settings → Secrets → Actions, add the
-   private key `pages-deploy` as `PAGES_DEPLOY_KEY`.
-4. In `matthiaskoenig.github.io` → Settings → Pages, set the source to branch
-   `main`, folder `/` (root).
-5. Run the *Deploy site* workflow manually once. The first deploy replaces the
-   old Jekyll content (`force_orphan: true` keeps a single commit on the target
-   branch).
+   `pages-deploy.pub` with **write access** (replace the existing key).
+3. In `matthiaskoenig/matthiaskoenig` → Settings → Secrets → Actions, store the
+   private key as `PAGES_DEPLOY_KEY`.
+4. `matthiaskoenig.github.io` → Settings → Pages serves branch `main`, folder
+   `/`. The Action pushes with `force_orphan: true`, so the target branch always
+   holds a single commit with the current build; its `README.md` (from
+   `public/README.md`) points back to this source repository.
 
 ## Troubleshooting
 

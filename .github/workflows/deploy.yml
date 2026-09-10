@@ -1,12 +1,12 @@
 # Builds the Astro site in site/ and pushes the output to the
 # matthiaskoenig.github.io repository, which GitHub Pages serves.
-# Runs on every push to main, weekly to refresh the GitHub data, and manually.
+# Runs on every push to main (i.e. when develop is merged into main),
+# weekly to refresh the GitHub data, and manually.
 name: Deploy site
 
 on:
   push:
     branches: [main]
-    paths: ['site/**', '.github/workflows/deploy.yml']
   schedule:
     - cron: '0 4 * * 1' # Mondays 04:00 UTC: refresh GitHub data
   workflow_dispatch:
