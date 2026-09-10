@@ -4,7 +4,7 @@ import { repoListFromContent } from '../scripts/lib/repo-list.ts';
 const p = (id: string, order: number, repo: string) =>
   ({ id, order, name: id, repo, title: '', description: '', tags: [] });
 const g = (id: string, order: number, repos: string[]) =>
-  ({ id, order, name: id, description: '', repos });
+  ({ id, order, name: id, description: '', repos, charts_exclude: [] });
 
 test('main repos come first in project order, then group repos', () => {
   const r = repoListFromContent(

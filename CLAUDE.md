@@ -27,7 +27,8 @@ Design spec: `docs/superpowers/specs/2026-09-10-github-profile-site-design.md`.
 - `site/` — Astro 7 + Vue 3 islands + Tailwind 4 (`@tailwindcss/vite`), Node 24.
   - `src/content/*.yml` — hand-curated content, validated by zod schemas in
     `src/content.config.ts`: `projects.yml` (six main projects),
-    `groups.yml` (grouped catalog of all other repos), `research.yml`
+    `groups.yml` (grouped catalog of all other repos; `charts_exclude` per
+    group hides repos from the charts), `research.yml`
     (research interest areas).
   - `src/data/github/*.json` — **gitignored** snapshots written by
     `npm run fetch` (`repos.json`, `releases.json`, `contributions.json`,

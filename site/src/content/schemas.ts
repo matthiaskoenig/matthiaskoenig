@@ -19,13 +19,17 @@ export const projectSchema = z.object({
   tags: z.array(z.string()).default([]),
 });
 
-export const groupSchema = z.object({
-  id: z.string(),
-  order: z.number().int().positive(),
-  name: z.string(),
-  description: z.string(),
-  repos: z.array(repoRef).min(1),
-});
+export const groupSchema = z
+  .object({
+    id: z.string(),
+    order: z.number().int().positive(),
+    name: z.string(),
+    description: z.string(),
+    repos: z.array(repoRef).min(1),
+    /** Repositories of this group left out of the charts (release timeline, stars); must be listed in `repos`. */
+    charts_exclude: z.array(repoRef).default([]),
+  })
+  .refine((g) => g.charts_exclude.every((r) => g.repos.includes(r)), { message: 'charts_exclude must only name repos of the same group' });
 
 export const iconNames = ['cube', 'heartbeat', 'picture', 'line-chart', 'unlock'] as const;
 

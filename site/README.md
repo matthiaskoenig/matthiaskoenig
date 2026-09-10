@@ -29,7 +29,8 @@ dist/                        pushed to matthiaskoenig/matthiaskoenig.github.io
 1. **Curated content** lives in `src/content/`:
    - `projects.yml`: the six main projects shown as cards (PK-DB, sbmlutils,
      pymetadata, libsbgnpy, VisFEM, cy3sbml) with a description, links and tags.
-   - `groups.yml`: every other repository, grouped by topic, for the catalog.
+   - `groups.yml`: every other repository, grouped by topic, for the catalog;
+     a group's `charts_exclude` keeps repositories out of the charts.
    - `research.yml`: the five research areas with the lab site's tag names,
      icons and colours; project tags in `projects.yml` must be one of them
      (the badges on the cards take the topic's colour).

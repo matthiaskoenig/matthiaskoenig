@@ -33,7 +33,7 @@ test('mergeProjects throws on a missing snapshot entry', () => {
   expect(() => mergeProjects([{ ...projects[0], repo: 'o/zzz' }], repos, releases, meta)).toThrow(/o\/zzz/);
 });
 test('mergeGroups attaches entries in listed order', () => {
-  const v = mergeGroups([{ id: 'g', order: 1, name: 'G', description: '', repos: ['o/b', 'o/a'] }], repos);
+  const v = mergeGroups([{ id: 'g', order: 1, name: 'G', description: '', repos: ['o/b', 'o/a'], charts_exclude: [] }], repos);
   expect(v[0].entries.map((e) => e.fullName)).toEqual(['o/b', 'o/a']);
 });
 const sources = projects.map((p) => ({ id: p.id, name: p.name, repo: p.repo }));
@@ -49,7 +49,7 @@ test('mergeReleases skips sources without releases and latest releases older tha
   expect(v.map((r) => r.projectId)).toEqual(['b']);
 });
 test('releaseSources lists projects then catalog repos, owner-prefixed for other owners', () => {
-  const groups = mergeGroups([{ id: 'g', order: 1, name: 'G', description: '', repos: ['o/b'] }], repos);
+  const groups = mergeGroups([{ id: 'g', order: 1, name: 'G', description: '', repos: ['o/b'], charts_exclude: [] }], repos);
   groups[0].entries.push({ ...entry('matthiaskoenig/x') });
   const s = releaseSources(projects, groups);
   expect(s.map((x) => x.name)).toEqual(['A', 'B', 'o/b', 'x']);

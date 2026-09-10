@@ -1,5 +1,5 @@
 import { describe, expect, test } from 'vitest';
-import { GitHubClient, GitHubHttpError, GitHubNotFoundError } from '../scripts/lib/github-client.ts';
+import { GitHubClient, GitHubHttpError, GitHubNetworkError, GitHubNotFoundError } from '../scripts/lib/github-client.ts';
 
 function fakeFetch(responses: Array<{ status: number; body?: unknown; headers?: Record<string, string> }>) {
   const calls: string[] = [];
@@ -64,5 +64,30 @@ describe('GitHubClient.raw / resolveZenodoBadge', () => {
     const impl = (async () => new Response('', { status: 302, headers: { location: 'https://doi.org/10.5281/zenodo.17406771' } })) as typeof fetch;
     const c = new GitHubClient({ token: 't', fetchImpl: impl, sleep: noSleep });
     await expect(c.resolveZenodoBadge('https://zenodo.org/badge/latestdoi/5066/matthiaskoenig/cy3sbml')).resolves.toBe('10.5281/zenodo.17406771');
+  });
+});
+
+describe('network errors', () => {
+  test('a thrown fetch error is retried and then succeeds', async () => {
+    let n = 0;
+    const impl = (async () => {
+      if (n++ === 0) throw new TypeError('fetch failed');
+      return new Response(JSON.stringify({ ok: 1 }), { status: 200, headers: { 'content-type': 'application/json' } });
+    }) as typeof fetch;
+    const c = new GitHubClient({ token: 't', fetchImpl: impl, sleep: noSleep });
+    await expect(c.rest('/x')).resolves.toEqual({ ok: 1 });
+    expect(n).toBe(2);
+  });
+  test('gives up after three network failures with a GitHubNetworkError', async () => {
+    let n = 0;
+    const impl = (async () => { n++; throw new TypeError('fetch failed'); }) as typeof fetch;
+    const c = new GitHubClient({ token: 't', fetchImpl: impl, sleep: noSleep });
+    await expect(c.raw('o/r', 'main', 'README.md')).rejects.toBeInstanceOf(GitHubNetworkError);
+    expect(n).toBe(3);
+  });
+  test('Zenodo resolution failures are non-fatal', async () => {
+    const impl = (async () => { throw new TypeError('fetch failed'); }) as typeof fetch;
+    const c = new GitHubClient({ token: 't', fetchImpl: impl, sleep: noSleep });
+    await expect(c.resolveZenodoBadge('https://zenodo.org/badge/latestdoi/x')).resolves.toBeNull();
   });
 });

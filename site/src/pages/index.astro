@@ -10,7 +10,7 @@ import RepositoriesSection from '../components/RepositoriesSection.astro';
 import { loadGithubData } from '../lib/github-data.ts';
 import { renderMarkdown, summarizeMarkdown } from '../lib/markdown.ts';
 import { mergeGroups, mergeProjects, mergeReleases, releaseSources } from '../lib/merge.ts';
-import { releaseTimeline, starsByRepo } from '../lib/charts.ts';
+import { chartExclusions, releaseTimeline, starsByRepo } from '../lib/charts.ts';
 
 // Curated YAML (content collections) merged with the fetched GitHub snapshots.
 const data = loadGithubData();
@@ -22,8 +22,9 @@ const research = (await getCollection('research')).map((e) => e.data);
 const since = new Date(new Date(data.releases.fetchedAt).getTime() - 2 * 365 * 86400000).toISOString();
 const sources = releaseSources(projectsRaw, groups);
 const releases = mergeReleases(sources, data.releases, renderMarkdown, summarizeMarkdown, since);
-const timeline = releaseTimeline(sources, data.releases);
-const stars = starsByRepo(data.repos.repos);
+const excluded = chartExclusions(groups);
+const timeline = releaseTimeline(sources, data.releases, excluded);
+const stars = starsByRepo(data.repos.repos, 15, excluded);
 ---
 <Base title="Prof. Dr. Matthias König – software & research software engineering" fetchedAt={data.repos.fetchedAt}>
   <Hero />
