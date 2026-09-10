@@ -8,6 +8,7 @@ interface Release {
   publishedAt: string;
   htmlUrl: string;
   bodyHtml: string;
+  summary: string;
   prerelease: boolean;
   projectId: string;
   projectName: string;
@@ -48,6 +49,7 @@ const chip = (isActive: boolean) => (isActive ? 'bg-primary text-white border-pr
             {{ open.has(key(r)) ? 'Hide notes' : 'Release notes' }}
           </button>
         </div>
+        <p v-if="r.summary && !open.has(key(r))" class="mt-1 text-sm text-ink/70">{{ r.summary }}</p>
         <div v-if="open.has(key(r))" class="prose mt-3 rounded bg-surface/60 p-4 text-sm" v-html="r.bodyHtml" />
       </li>
     </ol>
