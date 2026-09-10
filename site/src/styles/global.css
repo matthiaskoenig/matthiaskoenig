@@ -1,0 +1,21 @@
+@import "tailwindcss";
+@import "@fontsource-variable/source-serif-4";
+@import "@fontsource/space-grotesk/500.css";
+@import "@fontsource/space-grotesk/700.css";
+
+@theme {
+  --color-primary: #2c3e50;
+  --color-accent: #18bc9c;
+  --color-info: #3498db;
+  --color-warning: #f39c12;
+  --color-danger: #e74c3c;
+  --color-surface: #ecf0f1;
+  --color-muted: #95a5a6;
+  --color-ink: #212529;
+  --font-display: "Source Serif 4 Variable", Georgia, "Times New Roman", serif;
+  --font-brand: "Space Grotesk", "Helvetica Neue", Helvetica, Arial, sans-serif;
+}
+
+html { scroll-behavior: smooth; }
+body { @apply bg-white text-ink; }
+h1, h2, h3 { @apply font-display; }
