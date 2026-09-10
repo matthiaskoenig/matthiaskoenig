@@ -22,6 +22,12 @@ describe('curated content', () => {
     for (const p of c.projects) for (const t of p.tags) expect(tags.has(t), `${p.id}: unknown tag ${t}`).toBe(true);
     expect(c.research.length).toBe(5);
   });
+  test('charts_exclude names cy2 packages and linux-setup, all within their groups', () => {
+    const c = loadCuratedYaml(contentDir);
+    const excluded = c.groups.flatMap((g) => g.charts_exclude);
+    expect(excluded).toContain('matthiaskoenig/linux-setup');
+    expect(excluded.filter((r) => r.includes('/cy2')).length).toBe(4);
+  });
   test('project order is 1..n without gaps', () => {
     const orders = loadCuratedYaml(contentDir).projects.map((p) => p.order).sort((a, b) => a - b);
     expect(orders).toEqual([1, 2, 3, 4, 5, 6, 7]);

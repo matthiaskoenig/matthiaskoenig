@@ -1,6 +1,7 @@
 # Grouped catalog of all other repositories (not the main projects above).
 # Every entry is fetched by `npm run fetch`; a repository that no longer
-# exists fails the fetch, so remove it here.
+# exists fails the fetch, so remove it here. `charts_exclude` lists repos of
+# the group that stay in the catalog but are left out of the charts.
 - id: modeling
   order: 1
   name: Modeling and simulation
@@ -41,6 +42,11 @@
     - matthiaskoenig/cy2fluxviz
     - matthiaskoenig/cy2sabiork
     - matthiaskoenig/cy2reposition
+  charts_exclude:
+    - matthiaskoenig/cy2sbml
+    - matthiaskoenig/cy2fluxviz
+    - matthiaskoenig/cy2sabiork
+    - matthiaskoenig/cy2reposition
 
 - id: liver
   order: 5
@@ -59,4 +65,6 @@
   repos:
     - matthiaskoenig/livermetabolism-site
     - matthiaskoenig/matthiaskoenig
+    - matthiaskoenig/linux-setup
+  charts_exclude:
     - matthiaskoenig/linux-setup

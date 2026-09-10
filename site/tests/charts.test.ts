@@ -1,5 +1,5 @@
 import { describe, expect, test } from 'vitest';
-import { monthlyContributions, releaseTimeline, starsByRepo } from '../src/lib/charts.ts';
+import { chartExclusions, monthlyContributions, releaseTimeline, starsByRepo } from '../src/lib/charts.ts';
 import type { ReleasesFile, RepoEntry } from '../scripts/lib/schemas.ts';
 
 const rel = (repo: string, tag: string, date: string) => ({ repo, tag, name: tag, publishedAt: date, htmlUrl: `u/${tag}`, body: '', prerelease: false });
@@ -14,7 +14,12 @@ describe('releaseTimeline', () => {
     const rows = releaseTimeline([{ id: 'a', name: 'A', repo: 'o/a' }, { id: 'b', name: 'B', repo: 'o/b' }, { id: 'c', name: 'C', repo: 'o/c' }], releases);
     expect(rows.map((r) => r.name)).toEqual(['B', 'A']);
     expect(rows[1].points.map((p) => p.tag)).toEqual(['1', '2']);
+    expect(releaseTimeline([{ id: 'a', name: 'A', repo: 'o/a' }, { id: 'b', name: 'B', repo: 'o/b' }], releases, new Set(['o/b'])).map((r) => r.name)).toEqual(['A']);
   });
+});
+
+test('chartExclusions unions the groups', () => {
+  expect([...chartExclusions([{ charts_exclude: ['o/a'] }, { charts_exclude: ['o/b', 'o/a'] }])]).toEqual(['o/a', 'o/b']);
 });
 
 describe('monthlyContributions', () => {
@@ -35,5 +40,6 @@ describe('starsByRepo', () => {
   test('sorts by stars, drops zero-star repos, prefixes foreign owners, limits', () => {
     const repos = { 'matthiaskoenig/a': entry('matthiaskoenig/a', 5), 'sys-bio/b': entry('sys-bio/b', 50), 'matthiaskoenig/c': entry('matthiaskoenig/c', 0), 'matthiaskoenig/d': entry('matthiaskoenig/d', 7) };
     expect(starsByRepo(repos, 2).map((r) => r.name)).toEqual(['sys-bio/b', 'd']);
+    expect(starsByRepo(repos, 2, new Set(['sys-bio/b'])).map((r) => r.name)).toEqual(['d', 'a']);
   });
 });
