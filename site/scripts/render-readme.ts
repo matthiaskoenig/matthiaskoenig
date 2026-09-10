@@ -4,13 +4,14 @@
  *
  * Usage (from site/, after `npm run fetch`):  npm run readme
  */
-import { writeFileSync } from 'node:fs';
+import { readdirSync, writeFileSync } from 'node:fs';
 import { join } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { loadCuratedYaml } from '../src/content/schemas.ts';
 import { loadGithubData } from '../src/lib/github-data.ts';
 import { renderMarkdown, summarizeMarkdown } from '../src/lib/markdown.ts';
 import { mergeGroups, mergeProjects, mergeReleases, releaseSources } from '../src/lib/merge.ts';
+import { logoFor } from '../src/lib/logos-map.ts';
 import { renderReadme } from './lib/readme.ts';
 
 export function buildReadme(contentDir: string, dataDir: string): string {
@@ -20,7 +21,9 @@ export function buildReadme(contentDir: string, dataDir: string): string {
   const groupViews = mergeGroups(groups, data.repos);
   const since = new Date(new Date(data.releases.fetchedAt).getTime() - 2 * 365 * 86400000).toISOString();
   const releases = mergeReleases(releaseSources(projects, groupViews), data.releases, renderMarkdown, summarizeMarkdown, since);
-  return renderReadme({ research, projects: projectViews, releases, stats: data.stats, contributions: data.contributions, fetchedAt: data.repos.fetchedAt });
+  const logoFiles = readdirSync(fileURLToPath(new URL('../src/assets/logos/', import.meta.url)));
+  const logos = Object.fromEntries(Object.keys(data.repos.repos).map((r) => [r, logoFor(r, projects, logoFiles)]));
+  return renderReadme({ research, projects: projectViews, releases, logos, stats: data.stats, contributions: data.contributions, fetchedAt: data.repos.fetchedAt });
 }
 
 if (import.meta.main) {

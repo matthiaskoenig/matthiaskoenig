@@ -130,6 +130,7 @@ default `GITHUB_TOKEN` is used automatically.
 |---|---|---|
 | Add or edit a main project | `src/content/projects.yml` (logo file goes to `src/assets/projects/`) | `npm run fetch` |
 | Add a repository to the catalog | `src/content/groups.yml` | `npm run fetch` |
+| Logo for a catalog repository | `src/assets/logos/<repo name>.<ext>` (picked up by name) | rebuild |
 | Change a research topic (text, icon, colour) | `src/content/research.yml`; glyphs live in `src/components/TagIcon.astro` | rebuild |
 | Change texts in the hero, footer, imprint | `src/components/Hero.astro`, `Footer.astro`, `src/pages/impressum.astro` | rebuild |
 | DOI, license, Python versions of a project | `CITATION.cff` / `pyproject.toml` in that project's repository | `npm run fetch` |

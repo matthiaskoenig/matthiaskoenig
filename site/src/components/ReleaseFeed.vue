@@ -12,6 +12,7 @@ interface Release {
   prerelease: boolean;
   projectId: string;
   projectName: string;
+  logo: string | null;
 }
 const props = defineProps<{ releases: Release[] }>();
 
@@ -32,7 +33,10 @@ const fmt = (iso: string) => new Date(iso).toLocaleDateString('en-GB', { year: '
   <div>
     <ol class="divide-y divide-surface">
       <li v-for="r in shown" :key="key(r)" class="py-4">
-        <div class="flex flex-wrap items-baseline gap-x-3 gap-y-1">
+        <div class="flex flex-wrap items-center gap-x-3 gap-y-1">
+          <span class="flex h-6 w-6 shrink-0 items-center justify-center" aria-hidden="true">
+            <img v-if="r.logo" :src="r.logo" alt="" class="max-h-6 max-w-6 object-contain" loading="lazy" />
+          </span>
           <span class="font-brand font-bold text-primary">{{ r.projectName }}</span>
           <a class="text-accent underline" :href="r.htmlUrl">{{ r.name }}</a>
           <span v-if="r.prerelease" class="rounded-full bg-warning/20 px-2 text-xs">pre-release</span>

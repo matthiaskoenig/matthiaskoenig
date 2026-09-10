@@ -11,6 +11,7 @@ import { loadGithubData } from '../lib/github-data.ts';
 import { renderMarkdown, summarizeMarkdown } from '../lib/markdown.ts';
 import { mergeGroups, mergeProjects, mergeReleases, releaseSources } from '../lib/merge.ts';
 import { chartExclusions, releaseTimeline, starsByRepo } from '../lib/charts.ts';
+import { logoUrls } from '../lib/logos.ts';
 
 // Curated YAML (content collections) merged with the fetched GitHub snapshots.
 const data = loadGithubData();
@@ -25,6 +26,9 @@ const releases = mergeReleases(sources, data.releases, renderMarkdown, summarize
 const excluded = chartExclusions(groups);
 const timeline = releaseTimeline(sources, data.releases, excluded);
 const stars = starsByRepo(data.repos.repos, 15, excluded);
+const logos = await logoUrls(Object.keys(data.repos.repos), projectsRaw);
+const releasesWithLogos = releases.map((r) => ({ ...r, logo: logos[r.repo] ?? null }));
+const groupsWithLogos = groups.map((g) => ({ ...g, entries: g.entries.map((e) => ({ ...e, logo: logos[e.fullName] ?? null })) }));
 ---
 <Base title="Prof. Dr. Matthias König – software & research software engineering" fetchedAt={data.repos.fetchedAt}>
   <Hero />
@@ -32,7 +36,7 @@ const stars = starsByRepo(data.repos.repos, 15, excluded);
     <ResearchSection items={research} />
     <ProjectsSection projects={projects} topics={research} />
     <ContributionsSection stats={data.stats} contributions={data.contributions} />
-    <ReleasesSection releases={releases} timeline={timeline} />
-    <RepositoriesSection groups={groups} stars={stars} />
+    <ReleasesSection releases={releasesWithLogos} timeline={timeline} />
+    <RepositoriesSection groups={groupsWithLogos} stars={stars} />
   </main>
 </Base>

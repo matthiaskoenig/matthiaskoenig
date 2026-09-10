@@ -14,6 +14,7 @@ interface Repo {
   pushedAt: string;
   archived: boolean;
   license: string | null;
+  logo: string | null;
 }
 interface Group { id: string; name: string; description: string; entries: Repo[] }
 const props = defineProps<{ groups: Group[] }>();
@@ -70,7 +71,8 @@ const year = (iso: string) => iso.slice(0, 4);
       </button>
       <ul v-if="!collapsed.has(g.id)" class="mt-3 grid gap-3 md:grid-cols-2">
         <li v-for="r in g.entries" :key="r.fullName" class="rounded border border-surface p-3">
-          <div class="flex flex-wrap items-baseline gap-2">
+          <div class="flex flex-wrap items-center gap-2">
+            <img v-if="r.logo" :src="r.logo" alt="" class="max-h-5 max-w-8 object-contain" loading="lazy" />
             <a class="font-semibold text-primary hover:text-accent" :href="r.htmlUrl">{{ r.owner }}/<span class="font-bold">{{ r.name }}</span></a>
             <span v-if="r.archived" class="rounded-full bg-surface px-2 text-xs">archived</span>
             <span class="ml-auto text-xs text-muted">★ {{ r.stars }} · {{ r.language ?? '—' }} · {{ year(r.pushedAt) }}</span>

@@ -3,9 +3,12 @@
 import type { Research } from '../../src/content/schemas.ts';
 import type { ProjectView, ReleaseView } from '../../src/lib/merge.ts';
 import type { ContributionsFile, StatsFile } from '../lib/schemas.ts';
+import type { LogoRef } from '../../src/lib/logos-map.ts';
 
 const SITE = 'https://matthiaskoenig.github.io';
-const ASSETS = 'https://raw.githubusercontent.com/matthiaskoenig/matthiaskoenig/develop/site/src/assets/projects';
+const ASSETS_ROOT = 'https://raw.githubusercontent.com/matthiaskoenig/matthiaskoenig/develop/site/src/assets';
+const ASSETS = `${ASSETS_ROOT}/projects`;
+const logoImg = (ref: LogoRef | null | undefined, height: number) => (ref ? `<img src="${ASSETS_ROOT}/${ref.folder}/${ref.file}" height="${height}" alt=""> ` : '');
 const ICON_EMOJI: Record<Research['icon'], string> = { cube: '🧊', heartbeat: '💓', picture: '🖼️', 'line-chart': '📈', unlock: '🔓' };
 
 const fmt = (iso: string) => new Date(iso).toLocaleDateString('en-GB', { year: 'numeric', month: 'short', day: 'numeric', timeZone: 'UTC' });
@@ -22,6 +25,8 @@ export interface ReadmeData {
   research: Research[];
   projects: ProjectView[];
   releases: ReleaseView[];
+  /** logo per `owner/name`, for the releases list */
+  logos: Record<string, LogoRef | null>;
   stats: StatsFile;
   contributions: ContributionsFile;
   fetchedAt: string;
@@ -80,7 +85,7 @@ export function renderReadme(d: ReadmeData): string {
   out.push('## 🚀 Latest releases');
   out.push('');
   for (const r of d.releases) {
-    out.push(`- **${r.projectName}** [${r.name}](${r.htmlUrl}) · ${fmt(r.publishedAt)}${r.summary ? ` — ${r.summary}` : ''}`);
+    out.push(`- ${logoImg(d.logos[r.repo], 16)}**${r.projectName}** [${r.name}](${r.htmlUrl}) · ${fmt(r.publishedAt)}${r.summary ? ` — ${r.summary}` : ''}`);
   }
   out.push('');
 
