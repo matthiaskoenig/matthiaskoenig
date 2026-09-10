@@ -51,7 +51,7 @@ Research software engineering for systems medicine: open-source tools, standards
 
 ## 📊 Activity
 
-28 repositories · 983 stars · 1089 commits and 72 pull requests in the last year · primary language Python in 9 repositories. Contribution calendar, release timeline and the full repository catalog: [matthiaskoenig.github.io](https://matthiaskoenig.github.io).
+28 repositories · 983 stars · 1093 commits and 74 pull requests in the last year · primary language Python in 9 repositories. Contribution calendar, release timeline and the full repository catalog: [matthiaskoenig.github.io](https://matthiaskoenig.github.io).
 
 ## 📚 Learn more
 
