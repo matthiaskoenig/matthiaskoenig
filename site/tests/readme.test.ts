@@ -18,4 +18,5 @@ test('the README renders every section from fixture snapshots and the curated YA
   expect(md).toContain('**[Digital Pathology](');
   expect(md).toContain('data fetched on 2026-09-10');
   expect(md).not.toContain('undefined');
+  expect(md).toMatch(/- <img src="[^"]+\/projects\/sbmlutils\.webp" height="16" alt=""> \*\*sbmlutils\*\*/);
 });

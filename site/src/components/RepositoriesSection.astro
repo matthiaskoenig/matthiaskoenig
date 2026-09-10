@@ -3,7 +3,9 @@ import Section from './Section.astro';
 import RepoCatalog from './RepoCatalog.vue';
 import StarsChart from './StarsChart.vue';
 import type { GroupView } from '../lib/merge.ts';
-interface Props { groups: GroupView[]; stars: { name: string; stars: number; language: string | null; url: string }[] }
+import type { RepoEntry } from '../../scripts/lib/schemas.ts';
+type GroupWithLogos = Omit<GroupView, 'entries'> & { entries: (RepoEntry & { logo: string | null })[] };
+interface Props { groups: GroupWithLogos[]; stars: { name: string; stars: number; language: string | null; url: string }[] }
 ---
 <Section id="repositories" title="Repository catalog" lead="Everything else: libraries, apps, models and community projects, grouped by topic.">
   <h3 class="text-lg">Most starred</h3>
