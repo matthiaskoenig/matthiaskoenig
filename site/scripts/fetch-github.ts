@@ -11,7 +11,8 @@ import { join } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { z } from 'astro/zod';
 import { loadCuratedYaml } from '../src/content/schemas.ts';
-import { GitHubClient } from './lib/github-client.ts';
+import type { GitHubClient } from './lib/github-client.ts';
+import { GitHubClient as RealGitHubClient } from './lib/github-client.ts';
 import { repoListFromContent } from './lib/repo-list.ts';
 import { apiReleaseSchema, apiRepoSchema, graphqlContributionsSchema, type ReleaseEntry, type RepoEntry } from './lib/schemas.ts';
 import { computeStats, toContributions, toReleaseEntries, toRepoEntry } from './lib/transform.ts';
@@ -59,11 +60,11 @@ export async function runFetch(opts: {
   contentDir: string;
   outDir: string;
   now?: Date;
-  client?: GitHubClient;
+  client?: Pick<GitHubClient, 'rest' | 'graphql'>;
 }) {
   const now = opts.now ?? new Date();
   const fetchedAt = now.toISOString();
-  const client = opts.client ?? new GitHubClient({ token: opts.token });
+  const client = opts.client ?? new RealGitHubClient({ token: opts.token });
   const { projects, groups } = loadCuratedYaml(opts.contentDir);
   const { all, main } = repoListFromContent(projects, groups);
   console.log(`Fetching ${all.length} repositories (${main.length} main projects) as of ${fetchedAt}`);
@@ -72,7 +73,11 @@ export async function runFetch(opts: {
     const api = apiRepoSchema.parse(await client.rest(`/repos/${fullName}`));
     return toRepoEntry(api);
   });
-  const repos: Record<string, RepoEntry> = Object.fromEntries(repoEntries.map((r) => [r.fullName, r]));
+  // Key by the name as written in the YAML, not by the canonical full_name
+  // GitHub returns: the two differ after a rename or in capitalisation
+  // (e.g. sed-ml/sed-ml is returned as SED-ML/sed-ml), and the site looks
+  // entries up by the YAML spelling.
+  const repos: Record<string, RepoEntry> = Object.fromEntries(all.map((name, i) => [name, repoEntries[i]]));
 
   const releaseLists = await mapLimit(main, 4, async (fullName) => {
     const api = z.array(apiReleaseSchema).parse(await client.rest(`/repos/${fullName}/releases?per_page=3`));
