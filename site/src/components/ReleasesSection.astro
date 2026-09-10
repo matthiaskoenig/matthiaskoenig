@@ -5,6 +5,6 @@ import type { ReleaseView } from '../lib/merge.ts';
 interface Props { releases: ReleaseView[]; projects: { id: string; name: string }[] }
 const { releases, projects } = Astro.props;
 ---
-<Section id="releases" title="Latest releases" lead="The three most recent releases of each main project, with their release notes.">
+<Section id="releases" title="Latest releases" lead="Releases of the main projects from the last twelve months, with their release notes. The latest release of every project is shown on its card above.">
   <ReleaseFeed client:visible releases={releases} projects={projects} />
 </Section>

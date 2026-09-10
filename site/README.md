@@ -39,16 +39,21 @@ dist/                        pushed to matthiaskoenig/matthiaskoenig.github.io
    reads the curated YAML, derives the set of repositories (projects ∪ groups),
    and queries the GitHub API for each: repository metadata, the latest three
    releases of each main project, the contribution calendar of the last year,
-   and aggregate statistics. The results are written to `src/data/github/` as
-   four JSON files (`repos.json`, `releases.json`, `contributions.json`,
-   `stats.json`), each validated against a schema before writing.
+   aggregate statistics, and per main project the metadata kept in the
+   repository itself: `CITATION.cff` (Zenodo DOI, version, license),
+   `pyproject.toml` (supported Python versions, license) and the README's
+   Zenodo badge as a fallback for the DOI. The results are written to
+   `src/data/github/` as five JSON files (`repos.json`, `releases.json`,
+   `contributions.json`, `stats.json`, `project-meta.json`), each validated
+   against a schema before writing.
 
 3. **The Astro build** (`npm run build`) loads the snapshots, merges them with the
    curated entries by `owner/name`, renders release notes from markdown to
    sanitised HTML, and produces `dist/`. Three Vue components are hydrated in
    the browser (contribution calendar, release feed with filter, repository
    catalog with search and sorting); they receive their data as props and never
-   call the API.
+   call the API. The release feed shows the releases of the last twelve months;
+   each project card shows its latest release regardless of age.
 
 4. **Deployment**: `.github/workflows/deploy.yml` runs on every push to `main`,
    every Monday (to refresh the GitHub data) and on demand. It runs fetch →
@@ -107,7 +112,8 @@ default `GITHUB_TOKEN` is used automatically.
 | Add or edit a main project | `src/content/projects.yml` | `npm run fetch` |
 | Add a repository to the catalog | `src/content/groups.yml` | `npm run fetch` |
 | Change the research overview | `src/content/research.yml` | rebuild |
-| Change texts in the hero, imprint | `src/components/Hero.astro`, `src/pages/impressum.astro` | rebuild |
+| Change texts in the hero, footer, imprint | `src/components/Hero.astro`, `Footer.astro`, `src/pages/impressum.astro` | rebuild |
+| DOI, license, Python versions of a project | `CITATION.cff` / `pyproject.toml` in that project's repository | `npm run fetch` |
 | Colours, fonts | `src/styles/global.css` (`@theme` block) | rebuild |
 
 A repository that no longer exists on GitHub makes the fetch fail with its

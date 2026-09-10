@@ -1,14 +1,15 @@
 import { existsSync, readFileSync } from 'node:fs';
 import { join } from 'node:path';
 import type { z } from 'astro/zod';
-import { contributionsFileSchema, releasesFileSchema, reposFileSchema, statsFileSchema } from '../../scripts/lib/schemas.ts';
-import type { ContributionsFile, ReleasesFile, ReposFile, StatsFile } from '../../scripts/lib/schemas.ts';
+import { contributionsFileSchema, projectMetaFileSchema, releasesFileSchema, reposFileSchema, statsFileSchema } from '../../scripts/lib/schemas.ts';
+import type { ContributionsFile, ProjectMetaFile, ReleasesFile, ReposFile, StatsFile } from '../../scripts/lib/schemas.ts';
 
 export interface GithubData {
   repos: ReposFile;
   releases: ReleasesFile;
   contributions: ContributionsFile;
   stats: StatsFile;
+  projectMeta: ProjectMetaFile;
 }
 
 // Resolved from the working directory (npm scripts run from site/), because
@@ -23,12 +24,13 @@ function readSnapshot<T>(dir: string, name: string, schema: z.ZodType<T>): T {
   return schema.parse(JSON.parse(readFileSync(path, 'utf8')));
 }
 
-/** Reads and validates the four snapshot files written by `npm run fetch`. */
+/** Reads and validates the five snapshot files written by `npm run fetch`. */
 export function loadGithubData(dir: string = defaultDir): GithubData {
   return {
     repos: readSnapshot(dir, 'repos.json', reposFileSchema),
     releases: readSnapshot(dir, 'releases.json', releasesFileSchema),
     contributions: readSnapshot(dir, 'contributions.json', contributionsFileSchema),
     stats: readSnapshot(dir, 'stats.json', statsFileSchema),
+    projectMeta: readSnapshot(dir, 'project-meta.json', projectMetaFileSchema),
   };
 }

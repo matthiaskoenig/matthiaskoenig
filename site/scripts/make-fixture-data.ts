@@ -11,6 +11,7 @@ import { fileURLToPath } from 'node:url';
 import { z } from 'astro/zod';
 import { loadCuratedYaml } from '../src/content/schemas.ts';
 import { repoListFromContent } from './lib/repo-list.ts';
+import { buildProjectMeta } from './lib/project-meta.ts';
 import { apiReleaseSchema, graphqlContributionsSchema, type RepoEntry } from './lib/schemas.ts';
 import { computeStats, toContributions, toReleaseEntries } from './lib/transform.ts';
 
@@ -41,6 +42,7 @@ export function makeFixtureData(opts: { contentDir: string; outDir: string; now?
       license: 'MIT',
       pushedAt: new Date(now.getTime() - i * 86400000).toISOString(),
       archived: false,
+      defaultBranch: 'develop',
     };
   });
   const releaseFixture = z.array(apiReleaseSchema).parse(JSON.parse(readFileSync(join(fixturesDir, 'rest-releases.json'), 'utf8')));
@@ -55,6 +57,11 @@ export function makeFixtureData(opts: { contentDir: string; outDir: string; now?
   write('releases.json', { fetchedAt, releases });
   write('contributions.json', contributions);
   write('stats.json', computeStats(repos, fetchedAt));
+  const meta = buildProjectMeta({
+    citation: readFileSync(join(fixturesDir, 'CITATION.cff'), 'utf8'),
+    pyproject: readFileSync(join(fixturesDir, 'pyproject.toml'), 'utf8'),
+  });
+  write('project-meta.json', { fetchedAt, projects: Object.fromEntries(main.map((r) => [r, meta])) });
   console.log(`Wrote fixture snapshots for ${all.length} repositories to ${opts.outDir}`);
 }
 

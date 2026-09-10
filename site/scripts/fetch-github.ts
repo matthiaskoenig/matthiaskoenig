@@ -1,7 +1,7 @@
 /**
  * Fetches GitHub data for every repository listed in the curated YAML and
- * writes four snapshot files to src/data/github/ (gitignored):
- *   repos.json, releases.json, contributions.json, stats.json
+ * writes five snapshot files to src/data/github/ (gitignored):
+ *   repos.json, releases.json, contributions.json, stats.json, project-meta.json
  *
  * Usage:  GITHUB_TOKEN=... npm run fetch
  * The Action's default GITHUB_TOKEN is sufficient (public data only).
@@ -14,7 +14,8 @@ import { loadCuratedYaml } from '../src/content/schemas.ts';
 import type { GitHubClient } from './lib/github-client.ts';
 import { GitHubClient as RealGitHubClient } from './lib/github-client.ts';
 import { repoListFromContent } from './lib/repo-list.ts';
-import { apiReleaseSchema, apiRepoSchema, graphqlContributionsSchema, type ReleaseEntry, type RepoEntry } from './lib/schemas.ts';
+import { buildProjectMeta, findZenodoInReadme } from './lib/project-meta.ts';
+import { apiReleaseSchema, apiRepoSchema, graphqlContributionsSchema, type ProjectMeta, type ReleaseEntry, type RepoEntry } from './lib/schemas.ts';
 import { computeStats, toContributions, toReleaseEntries, toRepoEntry } from './lib/transform.ts';
 
 const CONTRIBUTIONS_QUERY = `
@@ -60,7 +61,7 @@ export async function runFetch(opts: {
   contentDir: string;
   outDir: string;
   now?: Date;
-  client?: Pick<GitHubClient, 'rest' | 'graphql'>;
+  client?: Pick<GitHubClient, 'rest' | 'graphql' | 'raw' | 'resolveZenodoBadge'>;
 }) {
   const now = opts.now ?? new Date();
   const fetchedAt = now.toISOString();
@@ -80,10 +81,24 @@ export async function runFetch(opts: {
   const repos: Record<string, RepoEntry> = Object.fromEntries(all.map((name, i) => [name, repoEntries[i]]));
 
   const releaseLists = await mapLimit(main, 4, async (fullName) => {
-    const api = z.array(apiReleaseSchema).parse(await client.rest(`/repos/${fullName}/releases?per_page=3`));
+    const api = z.array(apiReleaseSchema).parse(await client.rest(`/repos/${fullName}/releases?per_page=10`));
     return [fullName, toReleaseEntries(fullName, api)] as [string, ReleaseEntry[]];
   });
   const releases = Object.fromEntries(releaseLists);
+
+  // Metadata kept in the repositories themselves (DOI, license, Python versions).
+  const metaEntries = await mapLimit(main, 4, async (fullName) => {
+    const branch = repos[fullName].defaultBranch;
+    const [citation, pyproject, readme] = await Promise.all([
+      client.raw(fullName, branch, 'CITATION.cff'),
+      client.raw(fullName, branch, 'pyproject.toml'),
+      client.raw(fullName, branch, 'README.md'),
+    ]);
+    const badge = readme ? findZenodoInReadme(readme).latestDoiBadge : null;
+    const resolvedBadgeDoi = badge ? await client.resolveZenodoBadge(badge) : null;
+    return [fullName, buildProjectMeta({ citation, pyproject, readme, resolvedBadgeDoi })] as [string, ProjectMeta];
+  });
+  const projectMeta = Object.fromEntries(metaEntries);
 
   const from = new Date(now.getTime() - 365 * 24 * 3600 * 1000).toISOString();
   const raw = await client.graphql(CONTRIBUTIONS_QUERY, { login: opts.login, from, to: fetchedAt });
@@ -96,7 +111,8 @@ export async function runFetch(opts: {
   writeJsonAtomic(opts.outDir, 'releases.json', { fetchedAt, releases });
   writeJsonAtomic(opts.outDir, 'contributions.json', contributions);
   writeJsonAtomic(opts.outDir, 'stats.json', stats);
-  console.log(`Wrote 4 snapshot files to ${opts.outDir}`);
+  writeJsonAtomic(opts.outDir, 'project-meta.json', { fetchedAt, projects: projectMeta });
+  console.log(`Wrote 5 snapshot files to ${opts.outDir}`);
 }
 
 if (import.meta.main) {

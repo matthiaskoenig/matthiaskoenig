@@ -14,12 +14,14 @@ test('snapshot entries are keyed by the YAML spelling even when GitHub returns a
   const outDir = mkdtempSync(join(tmpdir(), 'fetch-'));
   const client = {
     rest: async <T>(path: string): Promise<T> => {
-      if (path.endsWith('/releases?per_page=3')) return releasesFixture as T;
+      if (path.includes('/releases?per_page=')) return releasesFixture as T;
       const requested = path.replace('/repos/', '');
       // Simulate GitHub canonicalising the owner, as it does for sed-ml -> SED-ML.
-      return { ...repoFixture, full_name: requested.toUpperCase(), name: requested.split('/')[1] } as T;
+      return { ...repoFixture, full_name: requested.toUpperCase(), name: requested.split('/')[1], default_branch: 'develop' } as T;
     },
     graphql: async <T>(): Promise<T> => contribFixture as T,
+    raw: async (_repo: string, _branch: string, file: string) => (file === 'README.md' ? 'no badges' : null),
+    resolveZenodoBadge: async () => null,
   };
   await runFetch({ token: 'x', login: 'matthiaskoenig', contentDir, outDir, client, now: new Date('2026-09-10T00:00:00Z') });
   const repos = reposFileSchema.parse(JSON.parse(readFileSync(join(outDir, 'repos.json'), 'utf8')));
