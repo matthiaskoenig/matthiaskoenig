@@ -1,10 +1,19 @@
 ---
 import Section from './Section.astro';
 import ReleaseFeed from './ReleaseFeed.vue';
+import ReleaseTimeline from './ReleaseTimeline.vue';
 import type { ReleaseView } from '../lib/merge.ts';
-interface Props { releases: ReleaseView[] }
-const { releases } = Astro.props;
+import type { ReleaseRow } from '../lib/charts.ts';
+interface Props { releases: ReleaseView[]; timeline: ReleaseRow[] }
+const { releases, timeline } = Astro.props;
 ---
 <Section id="releases" title="Latest releases" lead="The latest release of every repository on this page that published one in the last two years, newest first, with a summary of its release notes.">
-  <ReleaseFeed client:visible releases={releases} />
+  <h3 class="text-lg">Release history</h3>
+  <div class="mt-2 mb-10">
+    <ReleaseTimeline client:visible rows={timeline} />
+  </div>
+  <h3 class="text-lg">Latest release per repository</h3>
+  <div class="mt-2">
+    <ReleaseFeed client:visible releases={releases} />
+  </div>
 </Section>
