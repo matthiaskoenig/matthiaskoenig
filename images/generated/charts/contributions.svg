@@ -1,0 +1,58 @@
+<svg width="1000" height="240" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" baseProfile="full" viewBox="0 0 1000 240">
+<rect width="1000" height="240" x="0" y="0" fill="none"></rect>
+<path d="M39.2 212.5L992 212.5" fill="none" pointer-events="visible" stroke="#ecf0f1" class="zr1-cls-9"></path>
+<path d="M39.2 183.5L992 183.5" fill="none" pointer-events="visible" stroke="#ecf0f1" class="zr1-cls-9"></path>
+<path d="M39.2 155.5L992 155.5" fill="none" pointer-events="visible" stroke="#ecf0f1" class="zr1-cls-9"></path>
+<path d="M39.2 127.5L992 127.5" fill="none" pointer-events="visible" stroke="#ecf0f1" class="zr1-cls-9"></path>
+<path d="M39.2 99.5L992 99.5" fill="none" pointer-events="visible" stroke="#ecf0f1" class="zr1-cls-9"></path>
+<path d="M39.2 70.5L992 70.5" fill="none" pointer-events="visible" stroke="#ecf0f1" class="zr1-cls-9"></path>
+<path d="M39.2 42.5L992 42.5" fill="none" pointer-events="visible" stroke="#ecf0f1" class="zr1-cls-9"></path>
+<path d="M39.2 14.5L992 14.5" fill="none" pointer-events="visible" stroke="#ecf0f1" class="zr1-cls-9"></path>
+<path d="M39.2 212.5L992 212.5" fill="none" pointer-events="visible" stroke="#54555a" stroke-linecap="round" class="zr1-cls-9"></path>
+<text dominant-baseline="central" text-anchor="end" style="font-size:12px;font-family:sans-serif;" transform="translate(31.16 212)" fill="#95a5a6">0</text>
+<text dominant-baseline="central" text-anchor="end" style="font-size:12px;font-family:sans-serif;" transform="translate(31.16 183.7143)" fill="#95a5a6">50</text>
+<text dominant-baseline="central" text-anchor="end" style="font-size:12px;font-family:sans-serif;" transform="translate(31.16 155.4286)" fill="#95a5a6">100</text>
+<text dominant-baseline="central" text-anchor="end" style="font-size:12px;font-family:sans-serif;" transform="translate(31.16 127.1429)" fill="#95a5a6">150</text>
+<text dominant-baseline="central" text-anchor="end" style="font-size:12px;font-family:sans-serif;" transform="translate(31.16 98.8571)" fill="#95a5a6">200</text>
+<text dominant-baseline="central" text-anchor="end" style="font-size:12px;font-family:sans-serif;" transform="translate(31.16 70.5714)" fill="#95a5a6">250</text>
+<text dominant-baseline="central" text-anchor="end" style="font-size:12px;font-family:sans-serif;" transform="translate(31.16 42.2857)" fill="#95a5a6">300</text>
+<text dominant-baseline="central" text-anchor="end" style="font-size:12px;font-family:sans-serif;" transform="translate(31.16 14)" fill="#95a5a6">350</text>
+<text dominant-baseline="central" text-anchor="middle" style="font-size:12px;font-family:sans-serif;" xml:space="preserve" y="6" transform="translate(75.8077 220)" fill="#95a5a6">Sep 25</text>
+<text dominant-baseline="central" text-anchor="middle" style="font-size:12px;font-family:sans-serif;" xml:space="preserve" y="6" transform="translate(149.1031 220)" fill="#95a5a6">Oct 25</text>
+<text dominant-baseline="central" text-anchor="middle" style="font-size:12px;font-family:sans-serif;" xml:space="preserve" y="6" transform="translate(222.3985 220)" fill="#95a5a6">Nov 25</text>
+<text dominant-baseline="central" text-anchor="middle" style="font-size:12px;font-family:sans-serif;" xml:space="preserve" y="6" transform="translate(295.6938 220)" fill="#95a5a6">Dec 25</text>
+<text dominant-baseline="central" text-anchor="middle" style="font-size:12px;font-family:sans-serif;" xml:space="preserve" y="6" transform="translate(368.9892 220)" fill="#95a5a6">Jan 26</text>
+<text dominant-baseline="central" text-anchor="middle" style="font-size:12px;font-family:sans-serif;" xml:space="preserve" y="6" transform="translate(442.2846 220)" fill="#95a5a6">Feb 26</text>
+<text dominant-baseline="central" text-anchor="middle" style="font-size:12px;font-family:sans-serif;" xml:space="preserve" y="6" transform="translate(515.58 220)" fill="#95a5a6">Mar 26</text>
+<text dominant-baseline="central" text-anchor="middle" style="font-size:12px;font-family:sans-serif;" xml:space="preserve" y="6" transform="translate(588.8754 220)" fill="#95a5a6">Apr 26</text>
+<text dominant-baseline="central" text-anchor="middle" style="font-size:12px;font-family:sans-serif;" xml:space="preserve" y="6" transform="translate(662.1708 220)" fill="#95a5a6">May 26</text>
+<text dominant-baseline="central" text-anchor="middle" style="font-size:12px;font-family:sans-serif;" xml:space="preserve" y="6" transform="translate(735.4662 220)" fill="#95a5a6">Jun 26</text>
+<text dominant-baseline="central" text-anchor="middle" style="font-size:12px;font-family:sans-serif;" xml:space="preserve" y="6" transform="translate(808.7615 220)" fill="#95a5a6">Jul 26</text>
+<text dominant-baseline="central" text-anchor="middle" style="font-size:12px;font-family:sans-serif;" xml:space="preserve" y="6" transform="translate(882.0569 220)" fill="#95a5a6">Aug 26</text>
+<text dominant-baseline="central" text-anchor="middle" style="font-size:12px;font-family:sans-serif;" xml:space="preserve" y="6" transform="translate(955.3523 220)" fill="#95a5a6">Sep 26</text>
+<path d="M53.5 141.3L98.1 141.3A3 3 0 0 1 101.1 144.3L101.1 212L50.5 212L50.5 144.3A3 3 0 0 1 53.5 141.3Z" fill="#18bc9c" ecmeta_series_index="0" ecmeta_data_index="0" ecmeta_ssr_type="chart" class="zr1-cls-10"></path>
+<path d="M126.8 29.3L171.4 29.3A3 3 0 0 1 174.4 32.3L174.4 212L123.8 212L123.8 32.3A3 3 0 0 1 126.8 29.3Z" fill="#18bc9c" ecmeta_series_index="0" ecmeta_data_index="1" ecmeta_ssr_type="chart" class="zr1-cls-10"></path>
+<path d="M200.1 139L244.7 139A3 3 0 0 1 247.7 142L247.7 212L197.1 212L197.1 142A3 3 0 0 1 200.1 139Z" fill="#18bc9c" ecmeta_series_index="0" ecmeta_data_index="2" ecmeta_ssr_type="chart" class="zr1-cls-10"></path>
+<path d="M273.4 171.8L318 171.8A3 3 0 0 1 321 174.8L321 212L270.4 212L270.4 174.8A3 3 0 0 1 273.4 171.8Z" fill="#18bc9c" ecmeta_series_index="0" ecmeta_data_index="3" ecmeta_ssr_type="chart" class="zr1-cls-10"></path>
+<path d="M346.7 50.8L391.3 50.8A3 3 0 0 1 394.3 53.8L394.3 212L343.7 212L343.7 53.8A3 3 0 0 1 346.7 50.8Z" fill="#18bc9c" ecmeta_series_index="0" ecmeta_data_index="4" ecmeta_ssr_type="chart" class="zr1-cls-10"></path>
+<path d="M420 97.7L464.6 97.7A3 3 0 0 1 467.6 100.7L467.6 212L417 212L417 100.7A3 3 0 0 1 420 97.7Z" fill="#18bc9c" ecmeta_series_index="0" ecmeta_data_index="5" ecmeta_ssr_type="chart" class="zr1-cls-10"></path>
+<path d="M493.3 97.7L537.9 97.7A3 3 0 0 1 540.9 100.7L540.9 212L490.3 212L490.3 100.7A3 3 0 0 1 493.3 97.7Z" fill="#18bc9c" ecmeta_series_index="0" ecmeta_data_index="6" ecmeta_ssr_type="chart" class="zr1-cls-10"></path>
+<path d="M566.6 144.7L611.2 144.7A3 3 0 0 1 614.2 147.7L614.2 212L563.6 212L563.6 147.7A3 3 0 0 1 566.6 144.7Z" fill="#18bc9c" ecmeta_series_index="0" ecmeta_data_index="7" ecmeta_ssr_type="chart" class="zr1-cls-10"></path>
+<path d="M639.9 163.9L684.5 163.9A3 3 0 0 1 687.5 166.9L687.5 212L636.9 212L636.9 166.9A3 3 0 0 1 639.9 163.9Z" fill="#18bc9c" ecmeta_series_index="0" ecmeta_data_index="8" ecmeta_ssr_type="chart" class="zr1-cls-10"></path>
+<path d="M713.2 176.9L757.8 176.9A3 3 0 0 1 760.8 179.9L760.8 212L710.2 212L710.2 179.9A3 3 0 0 1 713.2 176.9Z" fill="#18bc9c" ecmeta_series_index="0" ecmeta_data_index="9" ecmeta_ssr_type="chart" class="zr1-cls-10"></path>
+<path d="M786.5 154.9L831 154.9A3 3 0 0 1 834 157.9L834 212L783.5 212L783.5 157.9A3 3 0 0 1 786.5 154.9Z" fill="#18bc9c" ecmeta_series_index="0" ecmeta_data_index="10" ecmeta_ssr_type="chart" class="zr1-cls-10"></path>
+<path d="M859.8 44.5L904.3 44.5A3 3 0 0 1 907.3 47.5L907.3 212L856.8 212L856.8 47.5A3 3 0 0 1 859.8 44.5Z" fill="#18bc9c" ecmeta_series_index="0" ecmeta_data_index="11" ecmeta_ssr_type="chart" class="zr1-cls-10"></path>
+<path d="M933.1 68.9L977.6 68.9A3 3 0 0 1 980.6 71.9L980.6 212L930.1 212L930.1 71.9A3 3 0 0 1 933.1 68.9Z" fill="#18bc9c" ecmeta_series_index="0" ecmeta_data_index="12" ecmeta_ssr_type="chart" class="zr1-cls-10"></path>
+<style ><![CDATA[
+.zr1-cls-9:hover {
+pointer-events:none;
+}
+.zr1-cls-10:hover {
+cursor:pointer;
+fill:rgba(26,206,171,1);
+}
+
+]]>
+
+</style>
+</svg>

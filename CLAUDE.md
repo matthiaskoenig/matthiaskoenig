@@ -9,8 +9,11 @@ Two things in one repository:
 1. `README.md` is the **GitHub profile README** of `matthiaskoenig` (rendered
    on https://github.com/matthiaskoenig). It is **generated** by
    `site/scripts/render-readme.ts` (template: `site/scripts/lib/readme.ts`)
-   from the same curated YAML and snapshots as the site; never edit it by
-   hand. `npm run readme` (in `site/`, after `npm run fetch`) regenerates it;
+   from the same curated YAML and snapshots as the site, together with the
+   SVG pictures under `images/generated/` (`site/scripts/render-images.ts`:
+   ECharts SSR from `src/lib/chart-options.ts`, calendar from
+   `src/lib/calendar-svg.ts`, topic icons from `src/lib/icons.ts`); never
+   edit README or those images by hand. `npm run readme` (in `site/`, after `npm run fetch`) regenerates it;
    the *Update profile README* workflow does the same weekly on `develop`,
    pushing with the `README_DEPLOY_KEY` deploy key (deploy keys bypass the
    develop ruleset).

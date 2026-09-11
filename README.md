@@ -4,15 +4,15 @@
 
 Research software engineering for systems medicine: open-source tools, standards and reproducible workflows for digital twins of the liver and human physiology. Professor of Metabolic Inflammation and Carcinogenesis of the Liver at the [University of Lübeck](https://www.uksh.de/) (UKSH, Campus Lübeck) and head of the [König Lab](https://livermetabolism.com) at Humboldt-Universität zu Berlin.
 
-🔗 **[matthiaskoenig.github.io](https://matthiaskoenig.github.io)** (software overview with interactive charts) · [livermetabolism.com](https://livermetabolism.com) · [ORCID](https://orcid.org/0000-0003-1725-179X) · [CV](https://livermetabolism.com/cv/)
+🔗 **[matthiaskoenig.github.io](https://matthiaskoenig.github.io)** (this page with interactive charts) · [livermetabolism.com](https://livermetabolism.com) · [ORCID](https://orcid.org/0000-0003-1725-179X) · [CV](https://livermetabolism.com/cv/)
 
 ## 🔬 Research interests
 
-- 🧊 **[Digital Twins](https://livermetabolism.com/research/?tag=Digital%20Twins)** — Mechanistic, patient-specific models spanning molecule to whole body that mirror an individual's physiology, enabling simulation-based prediction of disease progression and treatment response.
-- 💓 **[AI](https://livermetabolism.com/research/?tag=AI)** — Machine learning combined with mechanistic modeling to extract patterns from complex biomedical data and support predictive, personalized decision-making in medicine.
-- 🖼️ **[Digital Pathology](https://livermetabolism.com/research/?tag=Digital%20Pathology)** — Computational and AI-driven analysis of whole-slide histology images to quantify tissue structure, zonation, and disease patterns at scale.
-- 📈 **[Pharmacometrics](https://livermetabolism.com/research/?tag=Pharmacometrics)** — Physiologically based pharmacokinetic and pharmacodynamic (PBPK/PD) modeling of drug absorption, distribution, metabolism, and excretion to support precision dosing.
-- 🔓 **[Open & FAIR](https://livermetabolism.com/research/?tag=Open%20%26%20FAIR)** — Open, FAIR (Findable, Accessible, Interoperable, Reusable), and reproducible models, data, and software that the research community can build on.
+- <img src="./images/generated/topics/digital-twins.svg" height="20" alt=""> **[Digital Twins](https://livermetabolism.com/research/?tag=Digital%20Twins)** — Mechanistic, patient-specific models spanning molecule to whole body that mirror an individual's physiology, enabling simulation-based prediction of disease progression and treatment response.
+- <img src="./images/generated/topics/ai.svg" height="20" alt=""> **[AI](https://livermetabolism.com/research/?tag=AI)** — Machine learning combined with mechanistic modeling to extract patterns from complex biomedical data and support predictive, personalized decision-making in medicine.
+- <img src="./images/generated/topics/digital-pathology.svg" height="20" alt=""> **[Digital Pathology](https://livermetabolism.com/research/?tag=Digital%20Pathology)** — Computational and AI-driven analysis of whole-slide histology images to quantify tissue structure, zonation, and disease patterns at scale.
+- <img src="./images/generated/topics/pharmacometrics.svg" height="20" alt=""> **[Pharmacometrics](https://livermetabolism.com/research/?tag=Pharmacometrics)** — Physiologically based pharmacokinetic and pharmacodynamic (PBPK/PD) modeling of drug absorption, distribution, metabolism, and excretion to support precision dosing.
+- <img src="./images/generated/topics/open-fair.svg" height="20" alt=""> **[Open & FAIR](https://livermetabolism.com/research/?tag=Open%20%26%20FAIR)** — Open, FAIR (Findable, Accessible, Interoperable, Reusable), and reproducible models, data, and software that the research community can build on.
 
 ## 💻 Main projects
 
@@ -34,7 +34,19 @@ Research software engineering for systems medicine: open-source tools, standards
 - **VisFEM** — A browser-based visualization tool for finite element method (FEM) simulation results, making FEM-based digital twin models interactively explorable and shareable directly from the web.
 - **cy3sbml** — A widely used Cytoscape app for the visualization of SBML models in network contexts, enabling intuitive exploration of complex models in systems biology and bioinformatics.
 
+## 📊 Contributions
+
+28 repositories · 983 stars · 1089 commits and 72 pull requests in the last year · primary language Python in 9 repositories.
+
+[![Contribution calendar of the last year](./images/generated/charts/calendar.svg)](https://matthiaskoenig.github.io/#contributions)
+
+[![Contributions per month](./images/generated/charts/contributions.svg)](https://matthiaskoenig.github.io/#contributions)
+
 ## 🚀 Latest releases
+
+[![Release history per repository](./images/generated/charts/release-timeline.svg)](https://matthiaskoenig.github.io/#releases)
+
+Latest release of every repository on [the site](https://matthiaskoenig.github.io/#releases) that published one in the last two years:
 
 - <img src="https://raw.githubusercontent.com/matthiaskoenig/matthiaskoenig/develop/site/src/assets/projects/sbmlsim.webp" height="16" alt=""> **sbmlsim** [0.6.1](https://github.com/matthiaskoenig/sbmlsim/releases/tag/0.6.1) · 10 Sept 2026 — library code does not show figures. sbmlsim.sensitivity.plots.heatmap and S1_ST_barplot return the matplotlib.figure.Figure they create and close it instead of calling plt.show()…
 - <img src="https://raw.githubusercontent.com/matthiaskoenig/matthiaskoenig/develop/site/src/assets/projects/sbmlutils.webp" height="16" alt=""> **sbmlutils** [0.10.2](https://github.com/matthiaskoenig/sbmlutils/releases/tag/0.10.2) · 8 Sept 2026 — antimony 3.2.0 is excluded on Windows: its wheel raises OSError: [WinError -529697949] Windows Error 0xe06d7363 in loadAntimonyString when parsing the antimony of the…
@@ -49,9 +61,13 @@ Research software engineering for systems medicine: open-source tools, standards
 - **pkdb_analysis** [0.3.1](https://github.com/matthiaskoenig/pkdb_analysis/releases/tag/0.3.1) · 20 Oct 2025 — warnings to info on pharmacokinetics calculation · support python 3.10, 3.11, 3.12, 3.13 · updated build system with uv and ruff · fixed tests
 - <img src="https://raw.githubusercontent.com/matthiaskoenig/matthiaskoenig/develop/site/src/assets/projects/pkdb.webp" height="16" alt=""> **PK-DB** [pkdb-v0.9.8](https://github.com/matthiaskoenig/pkdb/releases/tag/v0.9.8) · 6 Oct 2025 — updated code licensing to MIT · removed travis · uv installation · updated postgres to version 18 · python update to py3.9 and pinned versions for stability
 
-## 📊 Activity
+## ⭐ Repositories
 
-28 repositories · 983 stars · 1093 commits and 74 pull requests in the last year · primary language Python in 9 repositories. Contribution calendar, release timeline and the full repository catalog: [matthiaskoenig.github.io](https://matthiaskoenig.github.io).
+[![Stars per repository](./images/generated/charts/stars.svg)](https://matthiaskoenig.github.io/#repositories)
+
+![Primary language](./images/generated/charts/stars-legend.svg)
+
+The full catalog with search and sorting, the interactive charts and the zoomable release history are on **[matthiaskoenig.github.io](https://matthiaskoenig.github.io)**.
 
 ## 📚 Learn more
 
