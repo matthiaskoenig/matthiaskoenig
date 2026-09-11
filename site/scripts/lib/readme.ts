@@ -9,7 +9,7 @@ const SITE = 'https://matthiaskoenig.github.io';
 const ASSETS_ROOT = 'https://raw.githubusercontent.com/matthiaskoenig/matthiaskoenig/develop/site/src/assets';
 const ASSETS = `${ASSETS_ROOT}/projects`;
 const logoImg = (ref: LogoRef | null | undefined, height: number) => (ref ? `<img src="${ASSETS_ROOT}/${ref.folder}/${ref.file}" height="${height}" alt=""> ` : '');
-const ICON_EMOJI: Record<Research['icon'], string> = { cube: '🧊', heartbeat: '💓', picture: '🖼️', 'line-chart': '📈', unlock: '🔓' };
+const IMAGES = './images/generated';
 
 const fmt = (iso: string) => new Date(iso).toLocaleDateString('en-GB', { year: 'numeric', month: 'short', day: 'numeric', timeZone: 'UTC' });
 const cell = (s: string) => s.replace(/\|/g, '\\|').replace(/\n/g, ' ');
@@ -45,7 +45,7 @@ export function renderReadme(d: ReadmeData): string {
   );
   out.push('');
   out.push(
-    `🔗 **[matthiaskoenig.github.io](${SITE})** (software overview with interactive charts) · [livermetabolism.com](https://livermetabolism.com) · ` +
+    `🔗 **[matthiaskoenig.github.io](${SITE})** (this page with interactive charts) · [livermetabolism.com](https://livermetabolism.com) · ` +
       '[ORCID](https://orcid.org/0000-0003-1725-179X) · [CV](https://livermetabolism.com/cv/)',
   );
   out.push('');
@@ -53,7 +53,7 @@ export function renderReadme(d: ReadmeData): string {
   out.push('## 🔬 Research interests');
   out.push('');
   for (const r of [...d.research].sort((a, b) => a.order - b.order)) {
-    out.push(`- ${ICON_EMOJI[r.icon]} **[${r.name}](${r.link})** — ${r.description.replace(/\s+/g, ' ').trim()}`);
+    out.push(`- <img src="${IMAGES}/topics/${r.id}.svg" height="20" alt=""> **[${r.name}](${r.link})** — ${r.description.replace(/\s+/g, ' ').trim()}`);
   }
   out.push('');
 
@@ -82,21 +82,37 @@ export function renderReadme(d: ReadmeData): string {
   for (const p of d.projects) out.push(`- **${p.name}** — ${p.description.replace(/\s+/g, ' ').trim()}`);
   out.push('');
 
+  const topLang = d.stats.languages[0];
+  out.push('## 📊 Contributions');
+  out.push('');
+  out.push(
+    `${d.stats.repoCount} repositories · ${d.stats.totalStars} stars · ${d.contributions.totals.commits} commits and ${d.contributions.totals.pullRequests} pull requests in the last year` +
+      (topLang ? ` · primary language ${topLang.name} in ${topLang.repos} repositories` : '') + '.',
+  );
+  out.push('');
+  out.push(`[![Contribution calendar of the last year](${IMAGES}/charts/calendar.svg)](${SITE}/#contributions)`);
+  out.push('');
+  out.push(`[![Contributions per month](${IMAGES}/charts/contributions.svg)](${SITE}/#contributions)`);
+  out.push('');
+
   out.push('## 🚀 Latest releases');
+  out.push('');
+  out.push(`[![Release history per repository](${IMAGES}/charts/release-timeline.svg)](${SITE}/#releases)`);
+  out.push('');
+  out.push(`Latest release of every repository on [the site](${SITE}/#releases) that published one in the last two years:`);
   out.push('');
   for (const r of d.releases) {
     out.push(`- ${logoImg(d.logos[r.repo], 16)}**${r.projectName}** [${r.name}](${r.htmlUrl}) · ${fmt(r.publishedAt)}${r.summary ? ` — ${r.summary}` : ''}`);
   }
   out.push('');
 
-  const topLang = d.stats.languages[0];
-  out.push('## 📊 Activity');
+  out.push('## ⭐ Repositories');
   out.push('');
-  out.push(
-    `${d.stats.repoCount} repositories · ${d.stats.totalStars} stars · ${d.contributions.totals.commits} commits and ${d.contributions.totals.pullRequests} pull requests in the last year` +
-      (topLang ? ` · primary language ${topLang.name} in ${topLang.repos} repositories` : '') +
-      `. Contribution calendar, release timeline and the full repository catalog: [${SITE.replace('https://', '')}](${SITE}).`,
-  );
+  out.push(`[![Stars per repository](${IMAGES}/charts/stars.svg)](${SITE}/#repositories)`);
+  out.push('');
+  out.push(`![Primary language](${IMAGES}/charts/stars-legend.svg)`);
+  out.push('');
+  out.push(`The full catalog with search and sorting, the interactive charts and the zoomable release history are on **[${SITE.replace('https://', '')}](${SITE})**.`);
   out.push('');
 
   out.push('## 📚 Learn more');

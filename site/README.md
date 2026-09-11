@@ -68,7 +68,11 @@ dist/                        pushed to matthiaskoenig/matthiaskoenig.github.io
 
 4. **Profile README**: `scripts/render-readme.ts` renders `../README.md`
    from the curated YAML and the snapshots (template in
-   `scripts/lib/readme.ts`). `.github/workflows/update-readme.yml` runs it
+   `scripts/lib/readme.ts`) and, via `scripts/render-images.ts`, the static
+   SVG pictures it embeds under `../images/generated/` (the three charts
+   rendered server-side by ECharts from the same option builders as the
+   islands, the contribution calendar, the topic icons). GitHub profile pages
+   cannot run scripts, so this is how the README mirrors the site. `.github/workflows/update-readme.yml` runs it
    weekly on `develop` and commits the result, so the profile page follows
    the data. Run `npm run readme` after content changes and commit the
    README with them.

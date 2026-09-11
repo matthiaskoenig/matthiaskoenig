@@ -8,7 +8,6 @@ import { SVGRenderer } from 'echarts/renderers';
 
 use([BarChart, ScatterChart, GridComponent, TooltipComponent, LegendComponent, DataZoomComponent, SVGRenderer]);
 
-export const palette = ['#2c3e50', '#18bc9c', '#3498db', '#f39c12', '#e74c3c', '#95a5a6', '#8e44ad', '#16a085'];
 
 export function useChart(option: () => EChartsCoreOption, onClick?: (params: unknown) => void): Ref<HTMLDivElement | null> {
   const el = ref<HTMLDivElement | null>(null);

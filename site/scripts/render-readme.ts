@@ -1,6 +1,7 @@
 /**
  * Writes the repository's README.md (the GitHub profile README) from the
- * curated YAML and the snapshots in src/data/github/.
+ * curated YAML and the snapshots in src/data/github/, plus the static SVG
+ * pictures it embeds (../images/generated/).
  *
  * Usage (from site/, after `npm run fetch`):  npm run readme
  */
@@ -13,6 +14,7 @@ import { renderMarkdown, summarizeMarkdown } from '../src/lib/markdown.ts';
 import { mergeGroups, mergeProjects, mergeReleases, releaseSources } from '../src/lib/merge.ts';
 import { logoFor } from '../src/lib/logos-map.ts';
 import { renderReadme } from './lib/readme.ts';
+import { renderImages } from './render-images.ts';
 
 export function buildReadme(contentDir: string, dataDir: string): string {
   const data = loadGithubData(dataDir);
@@ -31,5 +33,7 @@ if (import.meta.main) {
   const md = buildReadme(join(site, 'src/content'), join(site, 'src/data/github'));
   const target = join(site, '..', 'README.md');
   writeFileSync(target, md);
-  console.log(`Wrote ${target} (${md.length} characters)`);
+  const images = renderImages(join(site, 'src/content'), join(site, 'src/data/github'), join(site, '..', 'images/generated'));
+  console.log(`Wrote ${target} (${md.length} characters) and ${images.length} images in images/generated/`);
+  process.exit(0);
 }
