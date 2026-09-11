@@ -10,7 +10,7 @@ const { stats, contributions } = Astro.props;
 const months = monthlyContributions(contributions);
 ---
 <Section id="contributions" title="Contributions" lead="GitHub activity across the repositories listed on this page, refreshed weekly.">
-  <StatTiles stats={stats} contributions={contributions} />
+  <StatTiles stats={stats} />
   <div class="mt-8">
     <ContributionCalendar client:visible weeks={contributions.weeks} total={contributions.totals.calendar} />
   </div>
