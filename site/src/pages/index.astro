@@ -31,7 +31,7 @@ const releasesWithLogos = releases.map((r) => ({ ...r, logo: logos[r.repo] ?? nu
 const groupsWithLogos = groups.map((g) => ({ ...g, entries: g.entries.map((e) => ({ ...e, logo: logos[e.fullName] ?? null })) }));
 ---
 <Base title="Prof. Dr. Matthias König – software & research software engineering" fetchedAt={data.repos.fetchedAt}>
-  <Hero />
+  <Hero stats={data.stats} contributions={data.contributions} />
   <main class="flex-1">
     <ResearchSection items={research} />
     <ProjectsSection projects={projects} topics={research} />

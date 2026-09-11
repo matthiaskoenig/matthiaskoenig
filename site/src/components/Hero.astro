@@ -1,19 +1,41 @@
 ---
+import { Image } from 'astro:assets';
+import portrait from '../assets/portrait.png';
+import type { ContributionsFile, StatsFile } from '../../scripts/lib/schemas.ts';
+interface Props { stats: StatsFile; contributions: ContributionsFile }
+const { stats, contributions } = Astro.props;
+const tiles: [string, number][] = [
+  ['Repositories', stats.repoCount],
+  ['Stars', stats.totalStars],
+  ['Commits, last year', contributions.totals.commits],
+  ['Pull requests, last year', contributions.totals.pullRequests],
+];
 ---
 <div class="bg-surface">
-  <div class="mx-auto max-w-6xl px-4 py-12">
-    <p class="font-brand text-sm font-medium uppercase tracking-wide text-primary/70">Systems Medicine, Digital Twins &amp; AI</p>
-    <h1 class="mt-1 text-4xl md:text-5xl">Prof. Dr. Matthias König</h1>
-    <p class="mt-4 max-w-3xl text-lg text-ink/80">
-      Research software engineering for systems medicine: open-source tools, standards and
-      reproducible workflows for digital twins of the liver and human physiology.
-      Professor of Metabolic Inflammation and Carcinogenesis of the Liver at the <a class="text-accent underline" href="https://www.uksh.de/">University of Lübeck</a> (UKSH, Campus Lübeck)
-      and head of the <a class="text-accent underline" href="https://livermetabolism.com">König Lab</a> at Humboldt-Universität zu Berlin.
-    </p>
-    <ul class="mt-5 flex flex-wrap gap-3 text-sm">
-      <li><a class="rounded-full bg-primary px-4 py-1.5 text-white hover:bg-accent" href="https://github.com/matthiaskoenig">GitHub</a></li>
-      <li><a class="rounded-full bg-primary px-4 py-1.5 text-white hover:bg-accent" href="https://orcid.org/0000-0003-1725-179X">ORCID</a></li>
-      <li><a class="rounded-full bg-primary px-4 py-1.5 text-white hover:bg-accent" href="https://livermetabolism.com/cv/">CV</a></li>
-    </ul>
+  <div class="mx-auto flex max-w-6xl flex-col-reverse gap-8 px-4 py-12 md:flex-row md:items-start">
+    <div class="min-w-0 flex-1">
+      <p class="font-brand text-sm font-medium uppercase tracking-wide text-primary/70">Systems Medicine, Digital Twins &amp; AI</p>
+      <h1 class="mt-1 text-4xl md:text-5xl">Prof. Dr. Matthias König</h1>
+      <p class="mt-4 max-w-3xl text-lg text-ink/80">
+        Research software engineering for systems medicine: open-source tools, standards and
+        reproducible workflows for digital twins of the liver and human physiology.
+        Professor of Metabolic Inflammation and Carcinogenesis of the Liver at the <a class="text-accent underline" href="https://www.uksh.de/">University of Lübeck</a> (UKSH, Campus Lübeck)
+        and head of the <a class="text-accent underline" href="https://livermetabolism.com">König Lab</a> at Humboldt-Universität zu Berlin.
+      </p>
+      <ul class="mt-5 flex flex-wrap gap-3 text-sm">
+        <li><a class="rounded-full bg-primary px-4 py-1.5 text-white hover:bg-accent" href="https://github.com/matthiaskoenig">GitHub</a></li>
+        <li><a class="rounded-full bg-primary px-4 py-1.5 text-white hover:bg-accent" href="https://orcid.org/0000-0003-1725-179X">ORCID</a></li>
+        <li><a class="rounded-full bg-primary px-4 py-1.5 text-white hover:bg-accent" href="https://livermetabolism.com/cv/">CV</a></li>
+      </ul>
+      <dl class="mt-6 grid grid-cols-2 gap-3 sm:grid-cols-4">
+        {tiles.map(([label, value]) => (
+          <a href="#contributions" class="rounded-lg bg-white p-3 shadow-sm hover:shadow">
+            <dd class="font-brand text-2xl font-bold text-primary">{value}</dd>
+            <dt class="text-xs text-ink/70">{label}</dt>
+          </a>
+        ))}
+      </dl>
+    </div>
+    <Image src={portrait} alt="Matthias König" width={460} height={460} class="h-40 w-40 shrink-0 rounded-full object-cover shadow-lg md:h-52 md:w-52" loading="eager" />
   </div>
 </div>

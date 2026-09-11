@@ -1,25 +1,12 @@
 ---
-import type { ContributionsFile, StatsFile } from '../../scripts/lib/schemas.ts';
-interface Props { stats: StatsFile; contributions: ContributionsFile }
-const { stats, contributions } = Astro.props;
-const tiles: [string, number][] = [
-  ['Repositories', stats.repoCount],
-  ['Stars', stats.totalStars],
-  ['Commits, last year', contributions.totals.commits],
-  ['Pull requests, last year', contributions.totals.pullRequests],
-];
+// Language distribution across the repositories (the number tiles live in the hero).
+import type { StatsFile } from '../../scripts/lib/schemas.ts';
+interface Props { stats: StatsFile }
+const { stats } = Astro.props;
 const top = stats.languages.slice(0, 6);
 const palette = ['#2c3e50', '#18bc9c', '#3498db', '#f39c12', '#e74c3c', '#95a5a6'];
 ---
-<div class="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
-  {tiles.map(([label, value]) => (
-    <div class="rounded-lg bg-surface p-4">
-      <div class="font-brand text-3xl font-bold text-primary">{value}</div>
-      <div class="text-sm text-ink/70">{label}</div>
-    </div>
-  ))}
-</div>
-<div class="mt-6">
+<div>
   <h3 class="text-lg">Primary languages across repositories</h3>
   <div class="mt-2 flex h-3 w-full overflow-hidden rounded-full bg-surface" role="img" aria-label={top.map((l) => `${l.name} ${l.repos}`).join(', ')}>
     {top.map((l, i) => <span style={`width:${l.share * 100}%;background:${palette[i]}`} />)}
