@@ -32,49 +32,27 @@ Design spec: `docs/superpowers/specs/2026-09-10-github-profile-site-design.md`.
 
 ## Layout
 
-- `site/` — Astro 7 + Vue 3 islands + Tailwind 4 (`@tailwindcss/vite`), Node 24.
-  - `src/content/*.yml` — hand-curated content, validated by zod schemas in
-    `src/content.config.ts`: `projects.yml` (six main projects),
-    `groups.yml` (grouped catalog of all other repos; `charts_exclude` per
-    group hides repos from the charts), `research.yml`
-    (research interest areas).
-  - `src/data/github/*.json` — **gitignored** snapshots written by
-    `npm run fetch` (`repos.json`, `releases.json`, `contributions.json`,
-    `stats.json`, `project-meta.json`). The build fails without them.
-    `project-meta.json` (DOI, license, Python versions, version) is parsed
-    from `CITATION.cff`, `pyproject.toml` and the README of each main
-    project's default branch (`scripts/lib/project-meta.ts`).
-  - `src/pages/index.astro` — single page with anchored sections;
-    `impressum.astro` — imprint.
-  - `src/components/*.astro` — static parts; `*.vue` — the islands
-    (`ContributionCalendar`, `ReleaseFeed`, `RepoCatalog`, and the ECharts
-    plots `ReleaseTimeline`, `ContributionsChart`, `StarsChart` built on
-    `useChart.ts`, data prepared in `src/lib/charts.ts`). Islands only
-    present props computed at build time; they never fetch.
-  - `research.yml` holds the five lab topics (tag, icon, colour as on
-    livermetabolism.com); project tags must match a topic (tested).
-  - `scripts/fetch-github.ts` — GitHub REST + GraphQL fetcher;
-    `scripts/lib/` — pure transformation functions (unit-tested).
-  - `tests/` — Vitest, with recorded API responses in `tests/fixtures/`.
-- `.github/workflows/update-readme.yml` — weekly: fetch → `npm run readme`
-  → commit README to `develop`.
-- `.github/workflows/deploy.yml` — fetch → test → build → push `site/dist`
-  to `matthiaskoenig/matthiaskoenig.github.io` (weekly, on push to main,
-  manual). `ci.yml` — test + build on pull requests.
-- `images/` — banner used by both the README and the site.
+The code lives in `site/` (Astro + Vue islands + Tailwind, see
+`site/package.json`). What the tree does not tell you:
+
+- `src/data/github/*.json` are **gitignored** snapshots written by
+  `npm run fetch`. The build fails without them.
+- `project-meta.json` (DOI, license, Python versions, version) is parsed
+  from `CITATION.cff`, `pyproject.toml` and the README of each main
+  project's default branch (`scripts/lib/project-meta.ts`).
+- Islands (`src/components/*.vue`) only present props computed at build
+  time; they never fetch.
+- `charts_exclude` per group in `groups.yml` hides repos from the charts.
+- `research.yml` holds the five lab topics (tag, icon, colour as on
+  livermetabolism.com); project tags must match a topic (tested).
 
 ## Commands
 
-All inside `site/`:
+All inside `site/`; the standard scripts are in `package.json`. Not guessable:
 
 ```bash
-npm ci
 GITHUB_TOKEN=<token> npm run fetch   # writes src/data/github/*.json; needs public read scope
 npm run fetch:fixtures               # offline alternative: synthetic snapshots for every curated repo
-npm run dev                          # http://localhost:4321
-npm test                             # vitest
-npm run check                        # astro check
-npm run build && npm run preview
 ```
 
 In GitHub Actions the default `GITHUB_TOKEN` is enough for the fetch.
