@@ -126,7 +126,7 @@ export function renderReadme(d: ReadmeData): string {
   out.push('---');
   out.push('');
   out.push(
-    `<sub>Generated from GitHub data fetched on ${d.fetchedAt.slice(0, 10)}; refreshed weekly by the <em>Update profile README</em> workflow. ` +
+    `<sub>Generated from GitHub data fetched on ${d.fetchedAt.slice(0, 10)}; refreshed daily by the <em>Update profile README</em> workflow. ` +
       'This repository also holds the source of the site under <a href="./site">site/</a> (see <a href="./site/README.md">site/README.md</a>).</sub>',
   );
   out.push('');

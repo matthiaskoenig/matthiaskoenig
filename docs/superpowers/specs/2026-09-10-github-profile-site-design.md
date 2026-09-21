@@ -30,7 +30,7 @@ projects and teaching; this site covers software and GitHub contributions.
 | Question | Decision |
 |---|---|
 | URL | Keep `https://matthiaskoenig.github.io`. Source and CI live here; the Action pushes the built site into the `matthiaskoenig.github.io` repository, which becomes a pure deploy target. |
-| GitHub data | Fetched at build time by a script; site rebuilt weekly and on push. No browser-side API calls. |
+| GitHub data | Fetched at build time by a script; site rebuilt every night and on push. No browser-side API calls. |
 | Contribution scope | GitHub activity (calendar, totals, stars, languages) plus a hand-curated repository catalog, plus release news from the curated repositories. |
 | Research text | Curated subset copied into this repo, with a link to livermetabolism.com. No cross-repo build dependency. |
 | Look | Visually related to livermetabolism.com (colours, fonts, banner), implemented with plain CSS and Tailwind. No Bootstrap. |
@@ -198,7 +198,7 @@ alternative (totals) for screen readers.
 
 `.github/workflows/deploy.yml`:
 
-- Triggers: `push` to `main`, `schedule` weekly (Monday 04:00 UTC),
+- Triggers: `push` to `main`, `schedule` every night (04:00 UTC),
   `workflow_dispatch`.
 - Steps: checkout → setup Node 24 → `npm ci` → `npm run fetch`
   (`GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}`) → `npm test` →

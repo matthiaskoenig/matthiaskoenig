@@ -73,12 +73,12 @@ dist/                        pushed to matthiaskoenig/matthiaskoenig.github.io
    rendered server-side by ECharts from the same option builders as the
    islands, the contribution calendar, the topic icons). GitHub profile pages
    cannot run scripts, so this is how the README mirrors the site. `.github/workflows/update-readme.yml` runs it
-   weekly on `develop` and commits the result, so the profile page follows
+   every night on `develop` and commits the result, so the profile page follows
    the data. Run `npm run readme` after content changes and commit the
    README with them.
 
 5. **Deployment**: `.github/workflows/deploy.yml` runs on every push to `main`,
-   every Monday (to refresh the GitHub data) and on demand. It runs fetch →
+   every night (to refresh the GitHub data) and on demand. It runs fetch →
    test → build and pushes `dist/` to the `main` branch of
    `matthiaskoenig/matthiaskoenig.github.io`. If the fetch fails, the job stops
    before deploying, so the live site keeps its previous data.
