@@ -7,7 +7,7 @@ name: Update profile README
 
 on:
   schedule:
-    - cron: '30 4 * * 1' # Mondays 04:30 UTC, after the weekly site deploy
+    - cron: '30 4 * * *' # every night 04:30 UTC, after the nightly site deploy
   workflow_dispatch:
 
 permissions:

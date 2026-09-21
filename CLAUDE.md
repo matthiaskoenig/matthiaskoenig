@@ -14,7 +14,7 @@ Two things in one repository:
    ECharts SSR from `src/lib/chart-options.ts`, calendar from
    `src/lib/calendar-svg.ts`, topic icons from `src/lib/icons.ts`); never
    edit README or those images by hand. `npm run readme` (in `site/`, after `npm run fetch`) regenerates it;
-   the *Update profile README* workflow does the same weekly on `develop`,
+   the *Update profile README* workflow does the same every night on `develop`,
    pushing with the `README_DEPLOY_KEY` deploy key (deploy keys bypass the
    develop ruleset).
 2. `site/` is the **source of https://matthiaskoenig.github.io**, a static
