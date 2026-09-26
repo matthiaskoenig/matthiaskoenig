@@ -19,8 +19,8 @@
 <text dominant-baseline="central" text-anchor="end" style="font-size:12px;font-family:sans-serif;" transform="translate(202.76 219.9333)" fill="#212529">libsbgnpy</text>
 <text dominant-baseline="central" text-anchor="end" style="font-size:12px;font-family:sans-serif;" transform="translate(202.76 244.8667)" fill="#212529">sbmlsim</text>
 <text dominant-baseline="central" text-anchor="end" style="font-size:12px;font-family:sans-serif;" transform="translate(202.76 269.8)" fill="#212529">pymetadata</text>
-<text dominant-baseline="central" text-anchor="end" style="font-size:12px;font-family:sans-serif;" transform="translate(202.76 294.7333)" fill="#212529">SED-ML/sed-ml</text>
-<text dominant-baseline="central" text-anchor="end" style="font-size:12px;font-family:sans-serif;" transform="translate(202.76 319.6667)" fill="#212529">pkpdutils</text>
+<text dominant-baseline="central" text-anchor="end" style="font-size:12px;font-family:sans-serif;" transform="translate(202.76 294.7333)" fill="#212529">pkpdutils</text>
+<text dominant-baseline="central" text-anchor="end" style="font-size:12px;font-family:sans-serif;" transform="translate(202.76 319.6667)" fill="#212529">SED-ML/sed-ml</text>
 <text dominant-baseline="central" text-anchor="end" style="font-size:12px;font-family:sans-serif;" transform="translate(202.76 344.6)" fill="#212529">whole-cell-tutors/whole-cell-reduced</text>
 <text dominant-baseline="central" text-anchor="end" style="font-size:12px;font-family:sans-serif;" transform="translate(202.76 369.5333)" fill="#212529">dagwa/wholecell-metabolism</text>
 <text dominant-baseline="central" text-anchor="middle" style="font-size:12px;font-family:sans-serif;" y="6" transform="translate(210.76 390)" fill="#95a5a6">0</text>
@@ -41,8 +41,8 @@
 <path d="M210.8 211.2l14.9 0l0 17.5l-14.9 0Z" fill="#e74c3c" ecmeta_series_index="0" ecmeta_data_index="8" ecmeta_ssr_type="chart" class="zr2-cls-16"></path>
 <path d="M210.8 236.1l13.6 0l0 17.5l-13.6 0Z" fill="#2c3e50" ecmeta_series_index="0" ecmeta_data_index="9" ecmeta_ssr_type="chart" class="zr2-cls-12"></path>
 <path d="M210.8 261.1l7.4 0l0 17.5l-7.4 0Z" fill="#2c3e50" ecmeta_series_index="0" ecmeta_data_index="10" ecmeta_ssr_type="chart" class="zr2-cls-12"></path>
-<path d="M210.8 286l6.2 0l0 17.5l-6.2 0Z" fill="#95a5a6" ecmeta_series_index="0" ecmeta_data_index="11" ecmeta_ssr_type="chart" class="zr2-cls-17"></path>
-<path d="M210.8 310.9l5 0l0 17.5l-5 0Z" fill="#2c3e50" ecmeta_series_index="0" ecmeta_data_index="12" ecmeta_ssr_type="chart" class="zr2-cls-12"></path>
+<path d="M210.8 286l6.2 0l0 17.5l-6.2 0Z" fill="#2c3e50" ecmeta_series_index="0" ecmeta_data_index="11" ecmeta_ssr_type="chart" class="zr2-cls-12"></path>
+<path d="M210.8 310.9l6.2 0l0 17.5l-6.2 0Z" fill="#95a5a6" ecmeta_series_index="0" ecmeta_data_index="12" ecmeta_ssr_type="chart" class="zr2-cls-17"></path>
 <path d="M210.8 335.9l5 0l0 17.5l-5 0Z" fill="#2c3e50" ecmeta_series_index="0" ecmeta_data_index="13" ecmeta_ssr_type="chart" class="zr2-cls-12"></path>
 <path d="M210.8 360.8l3.7 0l0 17.5l-3.7 0Z" fill="#3498db" ecmeta_series_index="0" ecmeta_data_index="14" ecmeta_ssr_type="chart" class="zr2-cls-14"></path>
 <text dominant-baseline="central" text-anchor="start" style="font-size:12px;font-family:sans-serif;" transform="translate(945.0368 20.4667)" fill="#95a5a6">588</text>
@@ -57,7 +57,7 @@
 <text dominant-baseline="central" text-anchor="start" style="font-size:12px;font-family:sans-serif;" transform="translate(229.4029 244.8667)" fill="#95a5a6">11</text>
 <text dominant-baseline="central" text-anchor="start" style="font-size:12px;font-family:sans-serif;" transform="translate(223.2016 269.8)" fill="#95a5a6">6</text>
 <text dominant-baseline="central" text-anchor="start" style="font-size:12px;font-family:sans-serif;" transform="translate(221.9613 294.7333)" fill="#95a5a6">5</text>
-<text dominant-baseline="central" text-anchor="start" style="font-size:12px;font-family:sans-serif;" transform="translate(220.7211 319.6667)" fill="#95a5a6">4</text>
+<text dominant-baseline="central" text-anchor="start" style="font-size:12px;font-family:sans-serif;" transform="translate(221.9613 319.6667)" fill="#95a5a6">5</text>
 <text dominant-baseline="central" text-anchor="start" style="font-size:12px;font-family:sans-serif;" transform="translate(220.7211 344.6)" fill="#95a5a6">4</text>
 <text dominant-baseline="central" text-anchor="start" style="font-size:12px;font-family:sans-serif;" transform="translate(219.4808 369.5333)" fill="#95a5a6">3</text>
 <style ><![CDATA[
