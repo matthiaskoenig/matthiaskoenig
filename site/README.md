@@ -96,7 +96,8 @@ The repository follows the same model as sbmlutils and sbmlsim:
   or a fast-forward push) triggers the *Deploy site* workflow. `main` and tags
   cannot be deleted or force-pushed.
 - `.github/workflows/ci.yml` runs `tests` (vitest + astro check) and `build`
-  (fetch + astro build) on every push and pull request.
+  (fetch + astro build) on every pull request; a newer run cancels the running
+  one of the same pull request.
 
 ## Local development
 

@@ -1,22 +1,26 @@
-# Tests, type-checks and builds the site on every push and pull request.
+# Tests, type-checks and builds the site on every pull request.
 # The job names `tests` and `build` are the status checks required by the
 # `develop` ruleset. Deployment is a separate workflow (deploy.yml).
 name: CI
 
+# every change reaches develop through a pull request, so a push is not checked
+# again; that also leaves the nightly README commit of update-readme.yml alone
 on:
-  push:
   pull_request:
+  workflow_dispatch:
 
 permissions:
   contents: read
 
 concurrency:
-  group: ${{ github.workflow }}-${{ github.ref }}
+  group: ${{ github.workflow }}-${{ github.event.pull_request.number || github.ref }}
+  # a newer run supersedes the running one of the same pull request
   cancel-in-progress: true
 
 jobs:
   tests:
     runs-on: ubuntu-latest
+    timeout-minutes: 10
     defaults:
       run:
         working-directory: site
@@ -33,6 +37,7 @@ jobs:
 
   build:
     runs-on: ubuntu-latest
+    timeout-minutes: 10
     defaults:
       run:
         working-directory: site

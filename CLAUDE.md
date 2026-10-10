@@ -28,8 +28,6 @@ The site is complementary to https://livermetabolism.com (source:
 projects, teaching; this site owns software, GitHub activity, releases and
 the repository catalog. Do not duplicate lab content here; link to it.
 
-Design spec: `docs/superpowers/specs/2026-09-10-github-profile-site-design.md`.
-
 ## Layout
 
 The code lives in `site/` (Astro + Vue islands + Tailwind, see

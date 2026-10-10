@@ -12,8 +12,10 @@ on:
   workflow_dispatch:
 
 concurrency:
-  group: deploy
-  cancel-in-progress: false
+  group: ${{ github.workflow }}-${{ github.event.pull_request.number || github.ref }}
+  # a newer run supersedes the running one; a cancelled deployment leaves the
+  # published site as it was, the newer run deploys
+  cancel-in-progress: true
 
 permissions:
   contents: read
@@ -21,11 +23,16 @@ permissions:
 jobs:
   deploy:
     runs-on: ubuntu-latest
+    timeout-minutes: 10
     defaults:
       run:
         working-directory: site
     steps:
+      # main is the deployed branch; a scheduled run starts on the default
+      # branch develop and would otherwise publish what is not merged into main
       - uses: actions/checkout@v4
+        with:
+          ref: main
       - uses: actions/setup-node@v4
         with:
           node-version: 24
