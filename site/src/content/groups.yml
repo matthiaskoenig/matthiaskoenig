@@ -54,6 +54,6 @@
   description: Early metabolic network and whole-cell modeling projects.
   repos:
     - matthiaskoenig/hepatonet
-    - matthiaskoenig/glucose-model
+    - matthiaskoenig/glucose-liver
     - whole-cell-tutors/whole-cell-reduced
     - dagwa/wholecell-metabolism
