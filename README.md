@@ -73,4 +73,4 @@ Publications, projects, team and teaching of the König Lab: [livermetabolism.co
 
 ---
 
-<sub>Generated from GitHub data fetched on 2026-10-30; refreshed daily by the <em>Update profile README</em> workflow. This repository also holds the source of the site under <a href="./site">site/</a> (see <a href="./site/README.md">site/README.md</a>).</sub>
+<sub>Generated from GitHub data fetched on 2026-10-31; refreshed daily by the <em>Update profile README</em> workflow. This repository also holds the source of the site under <a href="./site">site/</a> (see <a href="./site/README.md">site/README.md</a>).</sub>
