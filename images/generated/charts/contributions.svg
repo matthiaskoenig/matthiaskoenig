@@ -40,7 +40,7 @@
 <path d="M716.2 202.2L760.2 202.2A3 3 0 0 1 763.2 205.2L763.2 212L713.2 212L713.2 205.2A3 3 0 0 1 716.2 202.2Z" fill="#18bc9c" ecmeta_series_index="0" ecmeta_data_index="9" ecmeta_ssr_type="chart" class="zr1-cls-10"></path>
 <path d="M788.7 168.8L832.7 168.8A3 3 0 0 1 835.7 171.8L835.7 212L785.7 212L785.7 171.8A3 3 0 0 1 788.7 168.8Z" fill="#18bc9c" ecmeta_series_index="0" ecmeta_data_index="10" ecmeta_ssr_type="chart" class="zr1-cls-10"></path>
 <path d="M861.2 26.4L905.2 26.4A3 3 0 0 1 908.2 29.4L908.2 212L858.2 212L858.2 29.4A3 3 0 0 1 861.2 26.4Z" fill="#18bc9c" ecmeta_series_index="0" ecmeta_data_index="11" ecmeta_ssr_type="chart" class="zr1-cls-10"></path>
-<path d="M930.7 212L980.8 212L930.7 212Z" fill="#18bc9c" ecmeta_series_index="0" ecmeta_data_index="12" ecmeta_ssr_type="chart" class="zr1-cls-10"></path>
+<path d="M933.7 207L977.8 207A3 3 0 0 1 980.8 210L980.8 212L930.7 212L930.7 210A3 3 0 0 1 933.7 207Z" fill="#18bc9c" ecmeta_series_index="0" ecmeta_data_index="12" ecmeta_ssr_type="chart" class="zr1-cls-10"></path>
 <style ><![CDATA[
 .zr1-cls-9:hover {
 pointer-events:none;
